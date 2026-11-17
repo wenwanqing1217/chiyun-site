@@ -282,9 +282,30 @@ function add(html,me){
   return wrap;
 }
 
+const MODELS=["4090 48G","4090 24G","RTX 4090","RTX 5090","A800","A100","H100","H200","L20","L40S","L40","P800","910B","910C","BW1000","S4000","PRO 6000","3090"];
+function detectModel(q){
+  const u=q.toUpperCase();
+  for(const m of MODELS) if(u.includes(m.toUpperCase())) return m;
+  const n=q.match(/(4090|5090|3090|a800|a100|h100|h200|l20|l40s|l40|p800|910b|910c|bw1000|s4000)/i);
+  return n?n[0]:"";
+}
+function filterTableRows(text, model){
+  if(!model) return text;
+  const key=model.replace(/^RTX\s+/i,"").toUpperCase();
+  const out=[];
+  for(const line of text.split("\n")){
+    const t=line.trim();
+    if(!t.startsWith("|")){ out.push(line); continue; }
+    if(/^\|[\s:\-|]+\|?$/.test(t)){ out.push(line); continue; }
+    if(/\bGPU\b|显存|型号|机型/.test(t) || t.toUpperCase().includes(key)) out.push(line);
+  }
+  return out.join("\n");
+}
+
 function answer(q){
   add(esc(q),true);
   const typing=add('<span class="typing"><i></i><i></i><i></i></span>');
+  const model=detectModel(q);
   setTimeout(()=>{
     const list=search(q);
     let html="";
@@ -292,19 +313,18 @@ function answer(q){
       html='<p class="nodata">资料里暂时没有这条的明确答案。可以换个问法，或者直接问人工。</p>'+
         '<div class="retry"><a class="src" href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">加企业微信</a></div>';
     }else{
-      window.__full = list;
+      window.__full = list.map(d=>({t:d.t,s:d.s,x:filterTableRows(d.x,model),raw:d.x}));
       html=list.map((d,i)=>{
-        const hasTable=d.x.indexOf("|")>=0;
+        const txt=filterTableRows(d.x,model);
         let body;
-        if(hasTable){
-          body=mdBlocks(d.x);
-        }else if(d.x.length>300){
-          body='<p>'+fmt(d.x.slice(0,300))+'…<a href="javascript:;" class="more" data-i="'+i+'">展开全文</a></p>';
+        if(d.x.indexOf("|")<0 && txt.length>600){
+          body='<p>'+fmt(txt.slice(0,600))+'…<a href="javascript:;" class="more" data-i="'+i+'">展开全文</a></p>';
         }else{
-          body=mdBlocks(d.x);
+          body=mdBlocks(txt);
         }
         return '<h3>'+esc(d.t)+'</h3>'+body+'<span class="src">来源：'+esc(d.s)+'</span>';
       }).join("");
+      if(model && list.some(d=>d.x.indexOf("|")>=0)) html+='<p class="src">以上仅显示与 '+esc(model)+' 相关的机型。</p>';
     }
     typing.querySelector(".bubble").innerHTML=html;
     const chat=document.getElementById("chat");

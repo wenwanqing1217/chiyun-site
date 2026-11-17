@@ -474,8 +474,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
     </div>
     <div class="film rv">
       <div class="film-in" id="film">
-        <video id="vid" poster="assets/film-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="auto">
-          <source src="assets/brand-film.mp4" type="video/mp4">
+        <video id="vid" poster="assets/film-poster.jpg" muted loop playsinline webkit-playsinline preload="none" data-src="assets/brand-film.mp4">
         </video>
         <div class="slides" id="slides">
           <img src="assets/film-0.jpg" alt=""><img src="assets/film-1.jpg" alt=""><img src="assets/film-2.jpg" alt=""><img src="assets/film-3.jpg" alt=""><img src="assets/film-4.jpg" alt=""><img src="assets/film-5.jpg" alt="">
@@ -770,6 +769,27 @@ body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
   fab.onclick=function(){ panel.classList.contains('on')?close():open(); };
   document.getElementById('aiClose').onclick=close;
   addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+<script>
+/* 首屏视频延迟加载：先显示海报，页面空闲后再拉 22MB 视频，避免转圈 */
+(function(){
+  var v=document.getElementById('vid');
+  if(!v) return;
+  function load(){
+    var src=v.getAttribute('data-src');
+    if(!src) return;
+    v.removeAttribute('data-src');
+    v.src=src;
+    var p=v.play();
+    if(p&&p.catch) p.catch(function(){});
+  }
+  function schedule(){
+    if('requestIdleCallback' in window) requestIdleCallback(load,{timeout:3000});
+    else setTimeout(load,1500);
+  }
+  if(document.readyState==='complete') schedule();
+  else addEventListener('load',schedule);
 })();
 </script>
 
