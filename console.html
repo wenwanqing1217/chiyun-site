@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>炽云AI · 工作台</title>
+<style>
+:root{--bg:#070b14;--card:#101827;--line:rgba(255,255,255,.08);--txt:#e8eefc;--dim:#8fa3c4;--blue:#2f7cff;--cyan:#19c8e6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 70% -10%,#12224a 0%,transparent 60%),var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;min-height:100vh;padding:40px 24px 60px}
+.wrap{max-width:1080px;margin:0 auto}
+header{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:800;font-size:18px}
+h1{font-size:20px;font-weight:700;letter-spacing:.5px}
+.lv{margin-left:auto;font-size:12px;color:#9fd0ff;border:1px solid rgba(47,124,255,.35);background:rgba(47,124,255,.12);padding:5px 11px;border-radius:20px}
+.out{font-size:12px;color:var(--dim);background:none;border:1px solid var(--line);border-radius:20px;padding:5px 11px;cursor:pointer;font-family:inherit}
+.out:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.sub{color:var(--dim);font-size:13px;margin:6px 0 30px}
+h2{font-size:12px;color:var(--dim);letter-spacing:2px;font-weight:600;margin:26px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+a.card,div.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;text-decoration:none;color:var(--txt);transition:.2s}
+a.card:hover{border-color:rgba(47,124,255,.5);transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(47,124,255,.5)}
+.t{font-size:14.5px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.d{font-size:12.5px;color:var(--dim);line-height:1.6;word-break:break-all}
+.tag{font-size:11px;font-weight:400;padding:1px 7px;border-radius:20px;background:rgba(47,124,255,.16);color:#8fb8ff;border:1px solid rgba(47,124,255,.25)}
+footer{margin-top:36px;color:#5f7192;font-size:12px;text-align:center}
+/* 登录 */
+.login{max-width:380px;margin:14vh auto 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px 22px;box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
+.login .logo{margin-bottom:14px}
+.login h3{font-size:17px;font-weight:600;margin-bottom:6px}
+.login p{font-size:12.5px;color:var(--dim);line-height:1.7;margin-bottom:18px}
+.login input{width:100%;height:44px;border-radius:10px;border:1px solid var(--line);background:#0a1220;color:var(--txt);padding:0 14px;font-size:15px;outline:none;font-family:inherit}
+.login input:focus{border-color:rgba(47,124,255,.6);box-shadow:0 0 0 4px rgba(47,124,255,.12)}
+.login button{width:100%;height:44px;margin-top:12px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+.login button:active{transform:scale(.99)}
+.err{color:#ff8f8f;font-size:12.5px;margin-top:10px;min-height:16px}
+.shake{animation:sk .3s}
+@keyframes sk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="login" id="login">
+    <div class="logo">炽</div>
+    <h3>内部工作台</h3>
+    <p>仅供公司内部使用。请输入访问口令。</p>
+    <input id="pw" type="password" placeholder="访问口令" autocomplete="off">
+    <button id="go">进入</button>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div id="app" class="hide">
+    <header><div class="logo">炽</div><h1>炽云AI · 工作台</h1><span class="lv" id="lv"></span><button class="out" id="out">退出</button></header>
+    <div class="sub">所有入口集中在这里，不用记路径。标「本机」的链接需要在公司电脑上打开。</div>
+    <div id="body"></div>
+    <footer>内部资料请勿外发</footer>
+  </div>
+</div>
+<script>
+const H1="1ab8b9e8f9ba4426cd109ed8af8b7bfd61bdf59b4673003d52bc51e1c7a07455",H2="7a2ec40ff8a1247c532309355f798a779e00acff579c63eec3636ffb2902c1ac",S1="cy-desk-1",S2="cy-desk-2",B1="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",B2="wLngximhLVT5cDPLG3FncLNqIlEPE8gcFNuAIewerpU80Z3EHRsRTbTK5TSAr1LqqmYUHJ0DVA6CBXdqlfkZ7Nky5rrpy46RLQQHI4VqG0W/NnVMQxZBNnKbbmrutWqzZB2t74WinUvHZU6qW4PEqKYAcLSv7yMZTMw053Ofz2+qyK9vTo9+LiY5ZAScZLS4O16Tlu0Lcw7rPfoucwdq18JMY1M4Qsl1t4p16JtbAqssLplk87/zvK6PdQHzafKI5lhXg4Cy2GhJSzVDR1A+yCWZPV8zlqirsa+EmriPvty8dVAeDweJraJLszSRC4RH96aRehRWOU6dxVq3yApt/zFJ3aOfeLTOV/wLX8YCGq8yBKFxhToFIy3AklPcsW6dHFN14KUvCUZn82YXJWMlHwb8sz1lY6LDmjvT+DBtz6AQXY1awkYP4YPFh6T1hdMkPdu1uoY++0vHXyjy3G0IcHGmnj9/S/aqX3NsVCDQHz5nKihEGdbBlfgV0od8M6xD5L3EAK0c1N9zcq+xLgHutxvjmHwxW0g7KplfnacLgf92/o/q+qIXAac6jMoGGcnEOdgQb8XeFJynRoURVGkLfABGxFxdFAcX2msMC1E0yeR3Qs/AxJgHi7l7/YJuXFvMcdTmSRnVfpDnZd+CCufjtrmiSbDz/ZLU2DkGljJJL9ijBuR/OlUzUUylvNRtFuLgtOVeTTpt+bmJcVIhtMh2vdaCYZxX7/YxhdXjhLrgM8A8+K1ZtPNfrjE6YmVxpI4JVpVI7einn7bUNM6Lx0Zqw857dpbVq1bZc2yAq5zBjUgHPlqTMNeIYSvVAcu/OWzves6w9sYzJ4mKdPQL2nViTzcf9+hmhd63Xunn1MQVNY0/F874ExNdtBkdUmlBtzbl0naUrp9g1FAQzPewIo66wF6z3SZe3ohc+5YSd+e3M664EhrmVx6GX2aOu4JO9LazxaQv+5918qF1AG60Ydy6/nDHWnvACyJKKJwKPRyQ6zGpEtXTXzn6FdRS4FQws/wjo1ijytSlWBng2yr+HEFb/DkxT7HgOQEEp3CFb9OqALCz6rSUmTPyVohicK/XzucWJZf/bDaonRmGVuW0lPgV2ipxgJOMof2w2oZ+6aBRQPjwUJSe/qRZrHomJhEIl3bpnWjRLeHizMot1HbuGGMzp5Bb4YrLSiaMbwvqq/WKESzK0A+wvSdxqbH17La5tOmH/EazWR8m2tC4xN8jiyzFChYSvnCKgOcSjuItSgyZqaLsVmXfv8lO2FY007wwRZLylqZKcT9PDdrFCjbuIRCgqI6+Ih8O4nE5iPiuNrQp06FivKKu5dL95u7hN8bo3l5U891H7YLsCAhiKCmjYzuO/5F9BrFTbjjmEgYFChhClarqfG9rjVhHvMnXjBypqivMTpMF0nI6f4liE6rPE1k5MqHjevBsGQqaQid8Az2hUP7G2f++IvFiaH/ig2tYIjF70ekJPv9NH3bf/tJ/WpziMxy0gqx9JCx6Xnl/kj4QgmRsUzqYWj8UKJ6Mjz5mbjJPedinab3BS9iHNwKl2XtRpYWCnQEYqs8BwZAEKUGHcs7JfdRjoo6lhc4SlGmq5FskXvAJ8mvPyaGsIktDENUDEusbRO0YDrUYAZczG4EqCk0o0ePCcBHuhybUpWm3s5mjW01XhINNUMYp5jGXFY5bGwPE8yzjLcXaWn9p5ssG1VZMoWOHPdcwdBWcFv7SLM2hxXFVhLuojQiRD/QYsulAhzQYeeBQyxOFbXRPcEolf5ki7IkDIibG3HH9zVuU+voZNw4okVreGEmV2Z8ghAgOG3KxDgqHNZPMynVyBgnaWe4ARfV7Vwv2EQ==";
+const box=document.getElementById("login"),app=document.getElementById("app"),err=document.getElementById("err");
+
+function hx(s){return Array.from(new Uint8Array(s)).map(b=>b.toString(16).padStart(2,"0")).join("")}
+async function sha(x){return hx(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(x)))}
+function h2b(h){const a=new Uint8Array(h.length/2);for(let i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+async function unseal(blob,pw,salt){
+  const raw=Uint8Array.from(atob(blob),c=>c.charCodeAt(0));
+  let out=new Uint8Array(0),prev=pw+salt,i=0;
+  while(out.length<raw.length){i++;prev=await sha(prev+"|"+i);const blk=h2b(prev);const n=new Uint8Array(out.length+blk.length);n.set(out);n.set(blk,out.length);out=n}
+  const dec=new Uint8Array(raw.length);
+  for(let k=0;k<raw.length;k++)dec[k]=raw[k]^out[k];
+  return JSON.parse(new TextDecoder().decode(dec));
+}
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(cfg,label){
+  document.getElementById("lv").textContent=label;
+  document.getElementById("body").innerHTML=cfg.map(sec=>
+    '<h2>'+esc(sec.h)+'</h2><div class="grid">'+sec.items.map(it=>{
+      const tag=it.tag?' <span class="tag">'+esc(it.tag)+'</span>':'';
+      const inner='<div class="t">'+esc(it.t)+tag+'</div><div class="d">'+esc(it.d)+'</div>';
+      return it.href?'<a class="card" href="'+esc(it.href)+'"'+(/^https?:/.test(it.href)?' target="_blank" rel="noopener"':'')+'>'+inner+'</a>':'<div class="card">'+inner+'</div>';
+    }).join("")+'</div>').join("");
+  box.classList.add("hide");app.classList.remove("hide");
+}
+async function login(pw){
+  const h=await sha(pw);
+  if(h===H1){sessionStorage.setItem("cy_pw",pw);render(await unseal(B1,pw,S1),"一级 · 管理");return true}
+  if(h===H2){sessionStorage.setItem("cy_pw",pw);render(await unseal(B2,pw,S2),"普通员工");return true}
+  err.textContent="口令不对，请重试";box.classList.add("shake");setTimeout(()=>box.classList.remove("shake"),320);return false;
+}
+document.getElementById("go").onclick=()=>{const v=document.getElementById("pw").value.trim();if(v)login(v)};
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter"){const v=e.target.value.trim();if(v)login(v)}});
+document.getElementById("out").onclick=()=>{sessionStorage.removeItem("cy_pw");location.reload()};
+if(!crypto.subtle){err.textContent="请通过 https 访问本站"}
+else{const saved=sessionStorage.getItem("cy_pw");if(saved)login(saved)}
+</script>
+</body>
+</html>

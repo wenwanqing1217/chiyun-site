@@ -10,3 +10,7 @@
 
 /ai.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/console.html
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow

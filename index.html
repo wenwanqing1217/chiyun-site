@@ -58,9 +58,11 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s var(--
 header.s{background:rgba(5,7,13,.72);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);border-bottom:1px solid var(--line)}
 .nav{height:76px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:12px}
-.logo img{height:26px;width:auto}
+.logo>a{display:flex;align-items:center;gap:12px}
 .logo b{font-weight:600;font-size:17px;letter-spacing:.02em}
 .logo span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;border-left:1px solid var(--line-2);padding-left:12px}
+.logo .in-entry{margin-left:0;padding-left:12px;border-left:1px solid var(--line-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);opacity:.38;transition:opacity .25s,color .25s}
+.logo .in-entry:hover{opacity:1;color:var(--ink-2)}
 .menu{display:flex;gap:36px;font-size:14px;color:var(--ink-2)}
 .menu a{position:relative;transition:color .2s}
 .menu a:hover{color:var(--ink)}
@@ -413,7 +415,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#top" class="logo"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b><span>AI-OPC</span></a>
+    <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部入口">内部</a></div>
     <nav class="menu" id="menu">
       <a href="#about">关于</a><a href="#business">业务</a><a href="#pricing">价格</a><a href="#why">优势</a><a href="#space">孵化空间</a><a href="#contact">联系</a>
       <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="m-login">共绩算力 · 登录 / 注册</a>
@@ -701,7 +703,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
   <div class="wrap">
     <div class="ft">
       <div>
-        <a href="#top" class="logo"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b><span>AI-OPC</span></a>
+        <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部入口">内部</a></div>
         <p style="margin-top:18px;max-width:360px;line-height:1.8">深圳市炽云人工智能有限公司 · 深圳平湖全链路 AI 算力基础设施 ｜ AI 创新企业孵化基地</p>
       </div>
       <div><h4>业务</h4><a href="#business">算力包</a><a href="#business">弹性 GPU</a><a href="#business">AI 工具超市</a><a href="#space">孵化器入驻</a></div>
@@ -763,7 +765,7 @@ body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
 <script>
 (function(){
   var fab=document.getElementById('aiFab'),panel=document.getElementById('aiPanel'),frame=document.getElementById('aiFrame');
-  var VER='202611171512';
+  var VER='202611171519';
   var SRC='ai.html?embed=1&bar=0&v='+VER;
   function preload(){ if(!frame.getAttribute('src')) frame.src=SRC; }
   function open(){ preload(); panel.classList.add('on'); document.body.classList.add('ai-open'); }
