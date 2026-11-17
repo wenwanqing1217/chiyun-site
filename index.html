@@ -764,7 +764,7 @@ body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
 <script>
 (function(){
   var fab=document.getElementById('aiFab'),panel=document.getElementById('aiPanel'),frame=document.getElementById('aiFrame');
-  var SRC='https://wenwanqing1217.github.io/chiyun-share/?embed=1&bar=0&v=10';
+  var SRC='ai.html?embed=1&bar=0&v=11';
   function open(){ if(!frame.getAttribute('src')) frame.src=SRC; panel.classList.add('on'); document.body.classList.add('ai-open'); }
   function close(){ panel.classList.remove('on'); document.body.classList.remove('ai-open'); }
   fab.onclick=function(){ panel.classList.contains('on')?close():open(); };
