@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炽云AI · AI-OPC 孵化器 — 让算力像水电一样简单</title>
+<meta name="description" content="深圳市炽云人工智能有限公司，立足深圳龙岗平湖，以 GPU 算力底座为核心，提供 GPU 算力租赁、AI 工具、弹性 GPU 与 AI-OPC 孵化器办公空间。">
+<meta name="keywords" content="炽云AI,AI-OPC孵化器,算力租赁,GPU租赁,4090租赁,H100租赁,深圳算力,训力券,平湖华南城">
+<meta property="og:title" content="炽云AI · AI-OPC 孵化器">
+<meta property="og:description" content="让算力像水电一样简单。一套算力底座，三层生意闭环。">
+<meta property="og:image" content="assets/og-cover.jpg">
+<meta name="theme-color" content="#05070d">
+<link rel="icon" href="assets/logo-mark.png">
+<style>
+@font-face{font-family:"Inter";src:url(assets/fonts/Inter.woff) format("woff");font-weight:100 900;font-display:swap}
+@font-face{font-family:"CY Sans";src:url(assets/fonts/NotoSansSC-Regular.woff) format("woff");font-weight:300 400;font-display:swap}
+@font-face{font-family:"CY Sans";src:url(assets/fonts/NotoSansSC-Medium.woff) format("woff");font-weight:500;font-display:swap}
+@font-face{font-family:"CY Sans";src:url(assets/fonts/NotoSansSC-Bold.woff) format("woff");font-weight:600 900;font-display:swap}
+:root{
+  --bg:#05070d;--bg-2:#090c16;--bg-3:#0d1120;
+  --ink:#f4f6fb;--ink-2:#a8b0c4;--ink-3:#6b7389;
+  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);
+  --accent:#5b8cff;--accent-2:#38d6f5;
+  --grad:linear-gradient(100deg,#7aa2ff 0%,#5b8cff 40%,#38d6f5 100%);
+  --glass:rgba(255,255,255,.035);
+  --sans:"Inter","CY Sans","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"Inter","CY Sans",sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-feature-settings:"palt","cv11","ss01";text-rendering:optimizeLegibility}
+.tr .v,.num b,.big-price b,.c-row .p,.tel,.c-foot b,.sh-txt .pr b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum","cv11"}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+section{position:relative;padding:140px 0}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:12px}
+.kicker:before{content:"";width:24px;height:1px;background:var(--accent-2)}
+.h2{font-size:clamp(34px,4.4vw,58px);line-height:1.2;font-weight:700;letter-spacing:-.01em;margin-top:22px}
+.h2 .dim{color:var(--ink-3)}
+.lede{color:var(--ink-2);font-size:18px;max-width:620px;margin-top:22px;line-height:1.8}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hair{height:1px;background:linear-gradient(90deg,transparent,var(--line-2),transparent)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;font-size:15px;font-weight:500;transition:all .3s var(--ease);white-space:nowrap}
+.btn svg.i{width:16px;height:16px;transition:transform .3s var(--ease)}
+.btn:hover svg.i{transform:translateX(3px)}
+.btn-w{background:var(--ink);color:#05070d}
+.btn-w:hover{background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.08)}
+.btn-o{border:1px solid var(--line-2);color:var(--ink);background:rgba(255,255,255,.02)}
+.btn-o:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.06)}
+
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s var(--ease)}
+header.s{background:rgba(5,7,13,.72);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);border-bottom:1px solid var(--line)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:26px;width:auto}
+.logo b{font-weight:600;font-size:17px;letter-spacing:.02em}
+.logo span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;border-left:1px solid var(--line-2);padding-left:12px}
+.menu{display:flex;gap:36px;font-size:14px;color:var(--ink-2)}
+.menu a{position:relative;transition:color .2s}
+.menu a:hover{color:var(--ink)}
+.menu .m-login{display:none}
+.nav .btn{height:40px;padding:0 18px;font-size:14px}
+.burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer}
+
+/* hero */
+.hero{min-height:100vh;padding:180px 0 0;overflow:hidden;isolation:isolate}
+.hero .grid-bg{position:absolute;inset:0;z-index:-2;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 60% at 60% 30%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 60% 30%,#000 20%,transparent 75%)}
+.hero .orb{position:absolute;z-index:-1;border-radius:50%;filter:blur(90px);opacity:.55}
+.orb.a{width:620px;height:620px;right:-120px;top:-140px;background:radial-gradient(circle,#3d6bff 0%,transparent 65%)}
+.orb.b{width:520px;height:520px;left:-200px;top:280px;background:radial-gradient(circle,#0fb5d6 0%,transparent 65%);opacity:.28}
+.hero-in{display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border:1px solid var(--line-2);border-radius:999px;font-size:13px;color:var(--ink-2);background:var(--glass);backdrop-filter:blur(8px)}
+.badge em{font-style:normal;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:999px;background:rgba(56,214,245,.12);color:var(--accent-2);letter-spacing:.06em}
+.hero h1{font-size:clamp(34px,5vw,80px);line-height:1.15;font-weight:700;letter-spacing:-.025em;margin:30px 0 28px}
+.hero h1 .gt{white-space:nowrap}
+.hero h1 .line1{display:block;margin-bottom:2px}
+.hero p{font-size:19px;color:var(--ink-2);max-width:540px;line-height:1.8}
+.hero .cta{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap}
+.hero .meta{display:flex;gap:28px;margin-top:56px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+.hero .meta span{display:flex;align-items:center;gap:8px}
+.hero .meta svg.i{width:15px;height:15px;color:var(--accent-2)}
+
+/* console card */
+.console{position:relative;border-radius:20px;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 40%,rgba(91,140,255,.35));box-shadow:0 40px 120px -20px rgba(40,80,255,.35)}
+.console-in{border-radius:19px;background:rgba(10,13,24,.86);backdrop-filter:blur(20px);overflow:hidden}
+.c-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:7px}.dots i{width:10px;height:10px;border-radius:50%;background:#2a2f40}
+.c-top .t{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.c-body{padding:22px}
+.c-row{display:grid;grid-template-columns:1.4fr .8fr .9fr;align-items:center;padding:14px 16px;border-radius:12px;font-size:14px;transition:background .3s}
+.c-row+.c-row{margin-top:6px}
+.c-row.on{background:rgba(91,140,255,.08);border:1px solid rgba(91,140,255,.22)}
+.c-row:not(.on){border:1px solid transparent}
+.c-row b{font-weight:500}
+.c-row small{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:2px}
+.c-row .p{font-family:var(--mono);color:var(--ink)}
+.c-row .p small{display:inline;margin:0}
+.st{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-2);justify-self:end}
+.st i{width:7px;height:7px;border-radius:50%;background:#3ee08f;box-shadow:0 0 10px #3ee08f}
+.st.idle i{background:#4a5066;box-shadow:none}
+.c-foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.c-foot div{padding:18px 20px}
+.c-foot div+div{border-left:1px solid var(--line)}
+.c-foot small{display:block;font-size:11.5px;color:var(--ink-3)}
+.c-foot b{font-family:var(--mono);font-size:18px;font-weight:500}
+.meter{height:3px;border-radius:3px;background:var(--line);margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;width:62%;background:var(--grad);animation:m 4s var(--ease) infinite alternate}
+@keyframes m{to{width:86%}}
+
+/* marquee */
+.marquee{margin-top:120px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:26px 0;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mq{display:flex;gap:64px;width:max-content;animation:mq 40s linear infinite;font-family:var(--mono);font-size:15px;color:var(--ink-3);letter-spacing:.06em}
+.mq span{display:flex;align-items:center;gap:64px;white-space:nowrap}
+.mq span:after{content:"";width:4px;height:4px;border-radius:50%;background:var(--ink-3);opacity:.5}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:1px solid var(--line)}
+.num{padding:40px 32px 0 0}
+.num+.num{padding-left:32px;border-left:1px solid var(--line)}
+.num b{display:block;font-size:clamp(44px,5vw,68px);font-weight:500;letter-spacing:-.04em;line-height:1}
+.num b sup{font-size:.32em;color:var(--ink-3);vertical-align:top;margin-left:6px;letter-spacing:0;font-weight:400;position:relative;top:.5em}
+.num p{color:var(--ink-3);font-size:14px;margin-top:16px}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 380px;gap:100px;align-items:center}
+.stmt{font-size:clamp(22px,2.3vw,30px);line-height:1.7;font-weight:400;color:var(--ink-3);letter-spacing:-.005em}
+.stmt b{color:var(--ink);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:44px}
+.tags span{font-size:13.5px;padding:9px 18px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
+.phone{position:relative;border-radius:40px;padding:10px;background:linear-gradient(160deg,#2a2f3e,#0c0f18 50%,#1d2232);box-shadow:0 60px 120px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.08) inset}
+.phone .scr{position:relative;border-radius:31px;overflow:hidden;aspect-ratio:9/16;background:#000}
+.phone video{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:36px;gap:14px;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.75));border:0;cursor:pointer;color:#fff;font-family:inherit;transition:opacity .4s}
+.play .c{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.3);transition:transform .3s var(--ease)}
+.play:hover .c{transform:scale(1.08)}
+.play .c svg{width:24px;height:24px;fill:#fff;stroke:none;margin-left:4px}
+.play span{font-size:13px;letter-spacing:.08em;opacity:.85}
+.play.hide{opacity:0;pointer-events:none}
+.ph-cap{text-align:center;font-size:12.5px;color:var(--ink-3);margin-top:20px;font-family:var(--mono);letter-spacing:.06em}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:72px}
+.card{position:relative;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));padding:40px;overflow:hidden;transition:border-color .4s,transform .5s var(--ease)}
+.card:hover{border-color:var(--line-2)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(500px circle at var(--mx,50%) var(--my,0%),rgba(91,140,255,.10),transparent 45%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover:before{opacity:1}
+.span3{grid-column:span 3}.span2{grid-column:span 2}.span6{grid-column:span 6}.span4{grid-column:span 4}
+.lv{font-family:var(--mono);font-size:12px;color:var(--accent-2);letter-spacing:.14em}
+.card h3{font-size:26px;font-weight:500;letter-spacing:-.01em;margin:16px 0 10px}
+.card .who{font-size:13px;color:var(--ink-3);margin-bottom:18px}
+.card p{color:var(--ink-2);font-size:15px;line-height:1.8}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:28px}
+.feat div{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)}
+.feat svg.i{width:16px;height:16px;color:var(--accent-2);margin-top:4px}
+.tool-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--ink)}
+.card.small h3{font-size:19px;margin-top:22px}
+.card.small p{font-size:14px}
+.base{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.base .chips{display:flex;gap:8px;flex-wrap:wrap}
+.base .chips span{font-family:var(--mono);font-size:12px;padding:7px 14px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--ink-2)}
+.big-price{display:flex;align-items:baseline;gap:10px;margin-top:28px}
+.big-price b{font-size:64px;font-weight:500;letter-spacing:-.04em;line-height:1}
+.big-price span{color:var(--ink-3);font-size:14px}
+
+/* pricing */
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.seg{display:inline-flex;padding:4px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-top:64px;flex-wrap:wrap}
+.seg{gap:2px}
+.seg button{border:0;background:none;color:var(--ink-3);font-family:inherit;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;transition:all .3s var(--ease)}
+.seg button:hover{color:var(--ink)}
+.seg button.on{background:var(--ink);color:#05070d}
+.tbl{margin-top:28px;border-top:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl-in{min-width:820px}
+.tr{display:grid;grid-template-columns:var(--cols);gap:12px;align-items:center;padding:20px 8px;border-bottom:1px solid var(--line);font-size:15px;transition:background .25s}
+.tr:hover{background:rgba(255,255,255,.02)}
+.tr.h{font-size:12px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.08em;padding:16px 8px}
+.tr .n{font-weight:500}
+.tr .m{font-family:var(--mono);color:var(--ink-2);font-size:13.5px}
+.tr .v{font-family:var(--mono);font-size:17px}
+.tr .v.dim{color:var(--ink-2)}
+.tr .v small{font-size:12px;color:var(--ink-3);margin-left:4px}
+.tr .s{color:var(--ink-3);font-size:14px}
+.hot{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid rgba(56,214,245,.4);color:var(--accent-2);margin-left:10px;vertical-align:2px;letter-spacing:.06em}
+.pnote{font-size:13px;color:var(--ink-3);margin-top:22px}
+
+/* strengths list */
+.list{margin-top:72px;border-top:1px solid var(--line)}
+.li{display:grid;grid-template-columns:148px 1fr 1.3fr;gap:32px;padding:48px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding .4s var(--ease)}
+.li:hover{padding-left:12px}
+.li .k{font-family:var(--sans);font-size:clamp(28px,3vw,48px);font-weight:700;letter-spacing:-.04em;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.li h3{font-size:clamp(24px,2.4vw,32px);font-weight:500;letter-spacing:-.015em}
+.li p{color:var(--ink-2);font-size:16px;line-height:1.8}
+
+/* partners */
+.pt{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:72px}
+.pt .card{padding:48px}
+.pt ul{list-style:none;margin-top:28px}
+.pt li{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line);color:var(--ink-2);font-size:15px}
+.pt li svg.i{width:16px;height:16px;color:var(--accent-2);margin-top:5px}
+.seal{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:13px;color:var(--ink-2);padding:8px 16px;border-radius:999px;border:1px solid var(--line-2)}
+.seal i{width:6px;height:6px;border-radius:50%;background:#3ee08f}
+
+/* space */
+.space-hero{position:relative;margin-top:72px;border-radius:28px;overflow:hidden;aspect-ratio:21/9;min-height:420px}
+.space-hero img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 1.6s var(--ease)}
+.space-hero.in img{transform:scale(1)}
+.space-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,13,.92) 0%,rgba(5,7,13,.55) 45%,rgba(5,7,13,.1) 100%)}
+.sh-txt{position:absolute;left:56px;bottom:56px;z-index:2;max-width:520px}
+.sh-txt .pr{display:flex;align-items:baseline;gap:10px}
+.sh-txt .pr b{font-size:clamp(64px,8vw,112px);font-weight:500;letter-spacing:-.05em;line-height:.9}
+.sh-txt .pr span{font-size:16px;color:var(--ink-2)}
+.sh-txt p{color:var(--ink-2);margin-top:18px;font-size:16px}
+.space-row{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:16px;margin-top:16px}
+.space-row .ph-img{border-radius:24px;overflow:hidden;aspect-ratio:4/3}
+.space-row .ph-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.space-row .ph-img:hover img{transform:scale(1.04)}
+.facts{border-radius:24px;border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.fact{display:flex;gap:16px;align-items:flex-start}
+.fact svg.i{color:var(--accent-2);margin-top:3px}
+.fact b{display:block;font-weight:500;font-size:15px}
+.fact small{color:var(--ink-3);font-size:13px}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);margin-top:80px;border-top:1px solid var(--line)}
+.step{padding:40px 40px 0 0;position:relative}
+.step+.step{padding-left:40px;border-left:1px solid var(--line)}
+.step:before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 14px var(--accent-2)}
+.step+.step:before{left:-4px}
+.step .k{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.14em}
+.step h3{font-size:26px;font-weight:500;margin:14px 0 14px}
+.step p{color:var(--ink-2);font-size:15px;line-height:1.8}
+
+/* cta */
+.final{padding:160px 0;text-align:center;overflow:hidden;isolation:isolate}
+.final .orb{position:absolute;z-index:-1;width:900px;height:500px;left:50%;top:40%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(61,107,255,.35),transparent 65%);filter:blur(40px)}
+.final h2{font-size:clamp(44px,6.4vw,96px);font-weight:600;letter-spacing:-.04em;line-height:1.05}
+.final p{color:var(--ink-2);font-size:18px;margin:28px auto 0;max-width:560px}
+.tel{display:inline-block;font-family:var(--mono);font-size:clamp(28px,3.4vw,44px);letter-spacing:.04em;margin-top:56px;padding-bottom:6px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
+.tel:hover{border-color:var(--accent-2)}
+.final .who{color:var(--ink-3);font-size:14px;margin-top:16px}
+.final .cta{display:flex;justify-content:center;gap:14px;margin-top:48px;flex-wrap:wrap}
+.trust{display:flex;justify-content:center;gap:36px;margin-top:72px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+.trust span{display:flex;align-items:center;gap:8px}
+.trust svg.i{width:15px;height:15px}
+
+footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:13px;color:var(--ink-3)}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.ft h4{font-size:12px;font-family:var(--mono);letter-spacing:.14em;color:var(--ink-2);font-weight:500;margin-bottom:16px}
+.ft p,.ft a{display:block;line-height:2}
+.ft a:hover{color:var(--ink)}
+.fb{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:12px}
+.disc{font-size:12px;line-height:1.8;margin-top:16px;opacity:.8}
+
+.fab{position:fixed;right:20px;bottom:20px;z-index:90;display:none}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.mq,.meter i{animation:none}}
+
+
+/* ===== texture & depth layer ===== */
+.hero .photo{position:absolute;inset:0;z-index:-3;background:url(assets/hero-dc.jpg) center/cover no-repeat;transform:scale(1.08);animation:kb 24s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.0) translateX(-1.5%)}}
+.hero .shade{position:absolute;inset:0;z-index:-2;background:
+  linear-gradient(90deg,rgba(5,7,13,.96) 0%,rgba(5,7,13,.86) 34%,rgba(5,7,13,.45) 62%,rgba(5,7,13,.25) 100%),
+  linear-gradient(180deg,rgba(5,7,13,.35) 0%,transparent 30%,transparent 65%,var(--bg) 100%)}
+.hero .grid-bg{opacity:.35}
+.hero h1{text-shadow:0 2px 40px rgba(0,0,0,.5)}
+.gt{background:linear-gradient(100deg,#e9f0ff 0%,#9ab8ff 30%,#5b8cff 55%,#38d6f5 85%,#c9f6ff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;animation:sh 8s ease-in-out infinite alternate}
+@keyframes sh{to{background-position:100% 0}}
+.console{box-shadow:0 50px 140px -30px rgba(40,90,255,.55),0 0 0 1px rgba(255,255,255,.04)}
+.console-in{background:linear-gradient(160deg,rgba(18,24,44,.72),rgba(8,11,22,.82));backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.012) 45%,rgba(91,140,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 60px -30px rgba(0,0,0,.6)}
+.card:after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.18),transparent 35%,transparent 70%,rgba(91,140,255,.25));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.card.chip{background:#05070d url(assets/chip.jpg) right center/cover no-repeat}
+.card.chip:before{opacity:1;background:linear-gradient(90deg,rgba(6,8,15,.97) 0%,rgba(6,8,15,.88) 48%,rgba(6,8,15,.35) 100%)}
+.card.chip>*{position:relative;z-index:1}
+.num b{background:linear-gradient(180deg,#fff 30%,#8fa6d6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.num b sup{-webkit-text-fill-color:var(--ink-3)}
+.final{background:url(assets/silk.jpg) center/cover no-repeat}
+.final:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(5,7,13,.35) 0%,rgba(5,7,13,.8) 70%),linear-gradient(180deg,var(--bg) 0%,transparent 25%,transparent 75%,var(--bg) 100%)}
+.final .orb{display:none}
+.space-hero{box-shadow:0 60px 120px -40px rgba(0,0,0,.8)}
+.phone{box-shadow:0 60px 120px -30px rgba(0,0,0,.9),0 0 80px -10px rgba(91,140,255,.35),0 0 0 1px rgba(255,255,255,.1) inset}
+.btn-w{background:linear-gradient(180deg,#fff,#dfe6f5);box-shadow:inset 0 -1px 0 rgba(0,0,0,.15),0 10px 30px -10px rgba(140,170,255,.6)}
+.seg button.on{background:linear-gradient(180deg,#fff,#dfe6f5)}
+#pricing .tbl{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));border:1px solid var(--line);border-radius:20px;padding:0 20px}
+
+
+.about{grid-template-columns:1fr !important;gap:0 !important}
+.about .stmt{max-width:1000px}
+.film{margin-top:80px;border-radius:28px;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.25),rgba(255,255,255,.04) 40%,rgba(91,140,255,.4));box-shadow:0 60px 140px -40px rgba(40,90,255,.45)}
+.film-in{position:relative;border-radius:27px;overflow:hidden;aspect-ratio:16/9;background:#05070d}
+.film-in video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slides{position:absolute;inset:0;display:none}
+.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1.2s ease,transform 6s linear}
+.slides img.on{opacity:1;transform:scale(1)}
+.film-in.fallback .slides{display:block}.film-in.fallback video{display:none}
+.film-bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:linear-gradient(180deg,transparent,rgba(5,7,13,.7));font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.75);font-weight:600}
+.film-bar span{display:flex;align-items:center;gap:10px}
+.film-bar i{width:7px;height:7px;border-radius:50%;background:#ff4d5e;box-shadow:0 0 10px #ff4d5e}
+.film-bar button{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);backdrop-filter:blur(10px);cursor:pointer;display:grid;place-items:center}
+.film-bar svg{width:15px;height:15px;fill:#fff}
+
+
+/* ===== gold accent (poster) ===== */
+:root{--au:linear-gradient(180deg,#fff6dc 0%,#f1d59a 38%,#c99a52 72%,#a77a3a 100%)}
+.au,.big-price b,.sh-txt .pr b{background:var(--au);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 24px rgba(214,170,90,.25))}
+.hot{border-color:rgba(232,196,128,.5);color:#ebcf95}
+.prs{display:flex;gap:56px;flex-wrap:wrap}
+.prs .pr{margin-top:14px}
+.sh-txt{max-width:640px}
+.sh-txt .pr b{font-size:clamp(56px,6.6vw,96px)}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+.reel{position:relative;margin:0;border-radius:22px;overflow:hidden;aspect-ratio:9/16;background:#0b0e18;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.reel:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);pointer-events:none}
+.reel img,.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel video{transition:transform 1.2s var(--ease)}
+.reel:hover video{transform:scale(1.04)}
+.reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:48px 20px 18px;background:linear-gradient(180deg,transparent,rgba(5,7,13,.85))}
+.reel figcaption b{display:block;font-size:16px;font-weight:600}
+.reel figcaption span{font-size:12.5px;color:var(--ink-2)}
+.space-row{grid-template-columns:1fr !important}
+.facts{flex-direction:row !important;flex-wrap:wrap;align-items:center;gap:28px 48px !important}
+.qrs{display:flex;justify-content:center;gap:20px;margin-top:64px;flex-wrap:wrap}
+.qr{display:flex;gap:22px;align-items:center;text-align:left;padding:20px 28px 20px 20px;border-radius:22px;border:1px solid var(--line-2);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));backdrop-filter:blur(14px);transition:border-color .3s,transform .4s var(--ease)}
+a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
+.qr-img{width:128px;height:128px;border-radius:14px;background:#fff;padding:8px;flex:none}
+.qr-img img{width:100%;height:100%;object-fit:contain}
+.qr-t b{display:block;font-size:18px;font-weight:600}
+.qr-t span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.7}
+.qr-t em{display:inline-flex;align-items:center;gap:6px;font-style:normal;font-size:13px;color:#ebcf95;margin-top:10px}
+.qr-t em svg.i{width:14px;height:14px}
+.sys{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:7px 14px 7px 10px;border-radius:999px;background:#fff;color:#111}
+.sys svg{width:15px;height:15px;stroke:#07c160;fill:none;stroke-width:2.4;stroke-linecap:round}
+.sys i{font-style:normal;font-size:12px;color:#07c160;font-weight:600}
+.sys b{font-size:13px;font-weight:600;color:#111;border-left:1px solid #ddd;padding-left:8px}
+.dock{position:fixed;right:20px;bottom:24px;z-index:95;display:flex;flex-direction:column;gap:10px}
+.dk{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(14,18,32,.8);border:1px solid var(--line-2);backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 12px 30px -10px rgba(0,0,0,.7);transition:all .3s var(--ease)}
+.dk:first-child{background:linear-gradient(180deg,#f3dba5,#c99a52);color:#1a1205;border:0}
+.dk:hover{transform:translateY(-2px)}
+.pop{position:absolute;right:64px;bottom:-6px;width:184px;padding:14px;border-radius:18px;background:#fff;color:#111;text-align:center;opacity:0;pointer-events:none;transform:translateX(8px);transition:all .3s var(--ease);box-shadow:0 20px 50px -10px rgba(0,0,0,.6)}
+.pop img{width:156px;height:156px}
+.pop b{display:block;font-size:14px;margin-top:6px}.pop span{font-size:12px;color:#666}
+.dk:hover .pop{opacity:1;transform:none}
+@media (max-width:1080px){.reels{grid-template-columns:repeat(2,1fr)}.pop{display:none}}
+@media (max-width:640px){.prs{gap:28px}.qr{width:100%}.qr-img{width:104px;height:104px}}
+
+@media (max-width:1080px){
+  .menu,.nav .btn{display:none}.burger{display:block}
+  .menu.open{display:flex;flex-direction:column;gap:0;position:absolute;top:76px;left:0;right:0;background:rgba(5,7,13,.97);border-bottom:1px solid var(--line);padding:8px 32px 20px}
+  .menu.open a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+  .menu.open .m-login{display:block;color:var(--ink);font-weight:500}
+  .hero-in,.about,.pt{grid-template-columns:1fr}
+  .about{gap:64px}.phone{max-width:340px;margin:0 auto}
+  .bento{grid-template-columns:1fr 1fr}.span3,.span2,.span4,.span6{grid-column:span 2}.card.small{grid-column:span 1}
+  .li{grid-template-columns:auto 1fr;gap:8px 16px;padding:36px 0}
+  .li .k{grid-column:1;grid-row:1}
+  .li h3{grid-column:2;grid-row:1}
+  .li p{grid-column:1/-1}
+  .space-row{grid-template-columns:1fr 1fr}.facts{grid-column:span 2}
+  .road{grid-template-columns:1fr}.step,.step+.step{padding:36px 0 36px 32px;border-left:1px solid var(--line)}.step:before,.step+.step:before{left:-4px;top:44px}
+  .ft{grid-template-columns:1fr}
+  
+  section{padding:100px 0}
+}
+@media (max-width:640px){
+  .wrap{padding:0 22px}
+  .hero{padding-top:140px}
+  .nums{grid-template-columns:1fr 1fr}.num,.num+.num{padding:28px 16px 28px 0;border-left:0}.num:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}.num:nth-child(n+3){border-top:1px solid var(--line)}
+  .bento{grid-template-columns:1fr}.span3,.span2,.span4,.span6,.card.small{grid-column:span 1}
+  .card,.pt .card{padding:30px}
+  .feat{grid-template-columns:1fr}
+  .space-hero{aspect-ratio:auto;min-height:480px}.sh-txt{left:28px;right:28px;bottom:32px}
+  .space-row{grid-template-columns:1fr}.facts{grid-column:span 1}
+  .c-row{grid-template-columns:1.3fr .9fr}.c-row .st{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-3M15 21l2-3"/><circle cx="9" cy="14" r=".6"/><circle cx="15" cy="14" r=".6"/></symbol>
+  <symbol id="building" viewBox="0 0 24 24"><path d="M4 21V5l8-3v19M12 8l8 3v10M8 7v.01M8 11v.01M8 15v.01M16 14v.01M16 18v.01M2 21h20"/></symbol>
+  <symbol id="zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="receipt" viewBox="0 0 24 24"><path d="M5 3v18l3-2 2 2 2-2 2 2 2-2 3 2V3z"/><path d="M9 8h6M9 12h6"/></symbol>
+  <symbol id="headset" viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></symbol>
+  <symbol id="menu-i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+</svg>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="logo"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b><span>AI-OPC</span></a>
+    <nav class="menu" id="menu">
+      <a href="#about">关于</a><a href="#business">业务</a><a href="#pricing">价格</a><a href="#why">优势</a><a href="#space">孵化空间</a><a href="#contact">联系</a>
+      <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="m-login">共绩算力 · 登录 / 注册</a>
+    </nav>
+    <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="btn btn-w"><svg class="i"><use href="#user"/></svg>登录 / 注册</a>
+    <button class="burger" id="burger" aria-label="菜单"><svg class="i" style="width:26px;height:26px"><use href="#menu-i"/></svg></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="photo"></div><div class="shade"></div><div class="grid-bg"></div><div class="orb a"></div><div class="orb b"></div>
+  <div class="wrap hero-in">
+    <div>
+      <div class="badge rv"><em>NEW</em>2026.11 报价已更新 · 22 款 GPU · 23 个大模型</div>
+      <h1 class="rv d1"><span class="line1">让算力</span><span class="gt">像水电一样简单</span></h1>
+      <p class="rv d2">炽云AI 以 GPU 算力底座为核心，集算力服务、AI 工具与企业孵化于一体。算力、办公、落地，一站式解决——助力团队轻装起步。</p>
+      <div class="cta rv d3">
+        <a href="#pricing" class="btn btn-w">查看算力价格<svg class="i"><use href="#arrow"/></svg></a>
+        <a href="#space" class="btn btn-o">预约参观孵化器</a>
+      </div>
+      <div class="meta rv d3">
+        <span><svg class="i"><use href="#cpu"/></svg>1 卡起租</span>
+        <span><svg class="i"><use href="#clock"/></svg>按秒计费 · 关机即停</span>
+        <span><svg class="i"><use href="#pin"/></svg>深圳本地服务</span>
+      </div>
+    </div>
+    <div class="console rv d2">
+      <div class="console-in">
+        <div class="c-top"><div class="dots"><i></i><i></i><i></i></div><div class="t">console.chiyun.ai / instances</div><div class="t">SZ-PINGHU</div></div>
+        <div class="c-body">
+          <div class="c-row on"><div><b>RTX 4090</b><small>24GB · ComfyUI 镜像</small></div><div class="p">1.94<small> /时</small></div><div class="st"><i></i>运行中</div></div>
+          <div class="c-row"><div><b>H100</b><small>80GB · PyTorch 2.x</small></div><div class="p">22.05<small> /时</small></div><div class="st"><i></i>运行中</div></div>
+          <div class="c-row"><div><b>昇腾 910B2</b><small>64GB · 信创</small></div><div class="p">4.12<small> /时</small></div><div class="st idle"><i></i>已关机 · 不计费</div></div>
+          <div class="c-row"><div><b>RTX 5090</b><small>32GB · 视频生成</small></div><div class="p">3.19<small> /时</small></div><div class="st"><i></i>运行中</div></div>
+        </div>
+        <div class="c-foot">
+          <div><small>计费粒度</small><b>1s</b></div>
+          <div><small>上游 SLA</small><b>99.99%</b></div>
+          <div><small>集群负载</small><div class="meter"><i></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee"><div class="mq" id="mq"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding-top:120px">
+  <div class="wrap">
+    <div class="about">
+      <div>
+        <div class="kicker rv">01 — About</div>
+        <p class="stmt rv d1" style="margin-top:32px"><b>深圳市炽云人工智能有限公司</b>立足深圳龙岗平湖，打造「AI-OPC 孵化器」。我们依托<b>平湖 9 个产业园区、10 万㎡ 自有载体</b>，在稳定的物业运营之上叠加 AI 算力服务——为中小商家、AI 创作者与 AI 创业公司提供<b>算力、办公、安居一体化</b>的完整底盘。</p>
+        <div class="tags rv d2"><span>GPU 算力租赁</span><span>AI 工具超市</span><span>弹性 GPU · NeoCloud</span><span>企业孵化</span><span>训力券申报协助</span></div>
+      </div>
+      
+    </div>
+    <div class="film rv">
+      <div class="film-in" id="film">
+        <video id="vid" poster="assets/film-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="auto">
+          <source src="assets/brand-film.mp4" type="video/mp4">
+        </video>
+        <div class="slides" id="slides">
+          <img src="assets/film-0.jpg" alt=""><img src="assets/film-1.jpg" alt=""><img src="assets/film-2.jpg" alt=""><img src="assets/film-3.jpg" alt=""><img src="assets/film-4.jpg" alt=""><img src="assets/film-5.jpg" alt="">
+        </div>
+        <div class="film-bar">
+          <span><i></i>BRAND FILM · 实景探访 · 0:22</span>
+          <button id="vbtn" aria-label="暂停/播放"><svg viewBox="0 0 24 24" id="vico"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="nums">
+      <div class="num rv"><b data-n="9">0<sup>个</sup></b><p>平湖产业园区</p></div>
+      <div class="num rv d1"><b data-n="10">0<sup>万㎡</sup></b><p>厂房 + 写字楼载体</p></div>
+      <div class="num rv d2"><b data-n="22">0<sup>款</sup></b><p>GPU 卡型 · 含国产信创</p></div>
+      <div class="num rv d3"><b data-n="300">0<sup>米</sup></b><p>距地铁华南城站</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="hair"></div></div>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="wrap">
+    <div class="kicker rv">02 — Business</div>
+    <h2 class="h2 rv d1">一套算力底座，<br><span class="dim">三层生意闭环。</span></h2>
+    <p class="lede rv d2">从开箱即用的 AI 工具，到按卡按时的算力包，再到面向创业公司的弹性 GPU——注册一次，三层通用。</p>
+
+    <div class="bento">
+      <div class="card span3 rv">
+        <div class="lv">L2 · GPU PACK</div>
+        <h3>算力包 · AI 视频算力租赁</h3>
+        <div class="who">面向 AI 短视频作坊、AI 生图电商</div>
+        <p>算力租赁与 AI 视频工具打包交付。按时按卡、开机计费、关机停费，不为闲置付一分钱。</p>
+        <div class="big-price"><b>1.94</b><span>元 / 卡·时 起 · RTX 4090</span></div>
+        <div class="feat">
+          <div><svg class="i"><use href="#check"/></svg>预装 SD / ComfyUI / 视频模型</div>
+          <div><svg class="i"><use href="#check"/></svg>按小时 + 包月两档</div>
+          <div><svg class="i"><use href="#check"/></svg>远程帮配环境</div>
+          <div><svg class="i"><use href="#check"/></svg>7×24 本地真人响应</div>
+        </div>
+      </div>
+      <div class="card span3 rv d1 chip">
+        <div class="lv">L3 · NEOCLOUD</div>
+        <h3>弹性 GPU · NeoCloud</h3>
+        <div class="who">面向大模型微调、推理与 AIGC 创业团队</div>
+        <p>GPU 资源池化、多租户安全隔离，按需供给。底层对接 DCIM 调度平台，异构卡统一纳管、稳定供给。</p>
+        <div class="feat" style="margin-top:36px">
+          <div><svg class="i"><use href="#check"/></svg>秒级计量</div>
+          <div><svg class="i"><use href="#check"/></svg>包月预留</div>
+          <div><svg class="i"><use href="#check"/></svg>竞价回收 · 抢占实例约 6 折</div>
+          <div><svg class="i"><use href="#check"/></svg>8 卡整机裸金属</div>
+          <div><svg class="i"><use href="#check"/></svg>H100 / H200 / H800</div>
+          <div><svg class="i"><use href="#check"/></svg>训力券可抵扣*</div>
+        </div>
+      </div>
+      <div class="card span6 rv" style="padding-bottom:36px">
+        <div class="lv">L1 · AI STORE</div>
+        <h3>AI 工具超市</h3>
+        <div class="who" style="margin-bottom:0">面向传统中小商家 · 订阅 + 按次调用 · 开通即用</div>
+      </div>
+      <div class="card small span2 rv"><div class="tool-ic"><svg class="i"><use href="#image"/></svg></div><h3>AI 绘图</h3><p>电商主图、海报、设计稿，文生图与图生图一站出稿。</p></div>
+      <div class="card small span2 rv d1"><div class="tool-ic"><svg class="i"><use href="#user"/></svg></div><h3>数字人</h3><p>口播数字人与 IP 形象视频，低成本批量产出内容。</p></div>
+      <div class="card small span2 rv d2"><div class="tool-ic"><svg class="i"><use href="#file"/></svg></div><h3>文档解析</h3><p>合同、票据、表格智能识别提取，告别人工录入。</p></div>
+      <div class="card span6 rv">
+        <div class="base">
+          <div><div class="lv">FOUNDATION</div><h3 style="margin-bottom:0">统一算力底座</h3></div>
+          <div class="chips"><span>GPU 集群</span><span>统一调度平台</span><span>API 网关</span><span>鉴权 · 限流 · 计量</span><span>统一计费账户</span><span>统一用户体系</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:linear-gradient(180deg,var(--bg),var(--bg-2) 30%,var(--bg-2) 70%,var(--bg))">
+  <div class="wrap">
+    <div class="ph">
+      <div>
+        <div class="kicker rv">03 — Pricing</div>
+        <h2 class="h2 rv d1">价格透明，<span class="dim">按需取用。</span></h2>
+        <p class="lede rv d2">2026 年 11 月报价，共 5 条公开产品线、62 个报价条目。GPU 1 卡起租、按秒计费；国产大模型统一 Key 接入，无订阅费、无最低消费；国际模型经企业渠道洽谈接入。</p>
+      </div>
+      <a href="#contact" class="btn btn-o rv">获取企业专属报价<svg class="i"><use href="#arrow"/></svg></a>
+    </div>
+    <div class="seg rv" id="seg">
+      <button class="on" data-t="gpu">GPU 弹性实例</button>
+      <button data-t="metal">裸金属整机</button>
+      <button data-t="job">Job 批处理</button>
+      <button data-t="llm">国产大模型 API</button>
+      <button data-t="intl">国际模型 · 企业洽谈</button>
+      <button data-t="sto">存储</button>
+    </div>
+    <div class="tbl" id="tbl"></div>
+    <p class="pnote" id="pnote"></p>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="kicker rv">04 — Why Chiyun</div>
+    <h2 class="h2 rv d1">别人卖算力，<br><span class="dim">我们卖完整的生意底盘。</span></h2>
+    <div class="list">
+      <div class="li rv"><div class="k">01</div><h3>轻资产，快上线</h3><p>不自购 GPU、不自研模型，以炽云品牌整合上游算力与 AI 能力，4–6 周即可上线，试错成本极低。</p></div>
+      <div class="li rv"><div class="k">02</div><h3>自有物业底盘</h3><p>10 万㎡ 自有载体可直接拿出楼栋做算力机房、孵化器办公与人才公寓，算力 + 办公 + 安居一体化。</p></div>
+      <div class="li rv"><div class="k">03</div><h3>上游供给有保障</h3><p>与共绩科技签约合作，GPU、国产大模型与存储统一供给；4090 到 H200、昇腾到昆仑芯全型号覆盖。国际模型另由合作渠道供给，仅面向境外用户及企业合规场景。</p></div>
+      <div class="li rv"><div class="k">04</div><h3>政策红利对接</h3><p>深圳训力券每年最高 1000 万元租用额度。我们跟进每一期申报窗口，协助客户完成抵扣登记*。</p></div>
+      <div class="li rv"><div class="k">05</div><h3>有人管的算力</h3><p>线上平台的客服是机器人，我们是真人。CUDA 装不上、ComfyUI 跑不通，远程或上门帮你搞定。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" style="padding-top:40px">
+  <div class="wrap">
+    <div class="kicker rv">05 — Partners</div>
+    <h2 class="h2 rv d1">战略合作，<span class="dim">供给无忧。</span></h2>
+    <div class="pt">
+      <div class="card rv">
+        <div class="lv">CORE PARTNER</div>
+        <h3>共绩科技 ·「算了么」</h3>
+        <ul>
+          <li><svg class="i"><use href="#check"/></svg>国内领先的闲时算力共享平台，接入 70 万台设备，SLA ≥ 99.99%</li>
+          <li><svg class="i"><use href="#check"/></svg>GPU 弹性实例 · 裸金属整机 · Job 批处理 · 存储，全线由共绩供给</li>
+          <li><svg class="i"><use href="#check"/></svg>国产大模型 API：Kimi · GLM · DeepSeek · Qwen · 腾讯混元</li>
+          <li><svg class="i"><use href="#check"/></svg>授权炽云推广销售，专属邀请码开通，月度结算</li>
+        </ul>
+        <div class="seal"><i></i>已签署合作协议 · 2026.10</div>
+      </div>
+      <div class="card rv d1">
+        <div class="lv">GLOBAL MODELS</div>
+        <h3>国际模型 · 企业渠道</h3>
+        <ul>
+          <li><svg class="i"><use href="#check"/></svg>覆盖海外主流厂商旗舰、主力与轻量型号，按企业需求定制</li>
+          <li><svg class="i"><use href="#check"/></svg>仅面向境外用户及境内企业合规自用场景，线下签约开通</li>
+          <li><svg class="i"><use href="#check"/></svg>不公开报价、不设自助购买，接入方式与条款以合同为准</li>
+          <li><svg class="i"><use href="#check"/></svg>境内公开服务均为已完成备案的国产大模型</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPACE -->
+<section id="space">
+  <div class="wrap">
+    <div class="kicker rv">06 — Incubation Space</div>
+    <h2 class="h2 rv d1">AI-OPC 孵化器，<br><span class="dim">办公、机房、公寓，一栋楼解决。</span></h2>
+    <div class="space-hero rv" id="sh">
+      <img src="assets/space-2.jpg" alt="AI-OPC 孵化器办公空间" loading="lazy">
+      <div class="sh-txt">
+        <div class="prs">
+          <div><div class="kicker">独立办公室</div><div class="pr"><b class="au">35</b><span>元 / ㎡·月 起</span></div></div>
+          <div><div class="kicker">OPC 卡位</div><div class="pr"><b class="au">600</b><span>元 / 位·月 起</span></div></div>
+        </div>
+        <p>豪华精装 · 拎包入驻 · 即租即用。AI 创新研发企业定向入驻，开盘活动期签约享专属礼遇。</p>
+      </div>
+    </div>
+    <div class="reels">
+      <figure class="reel rv"><img src="assets/loop-aerial.jpg" alt=""><video src="assets/loop-aerial.mp4" poster="assets/loop-aerial.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>园区航拍</b><span>平湖华南城</span></figcaption></figure>
+      <figure class="reel rv d1"><img src="assets/loop-office.jpg" alt=""><video src="assets/loop-office.mp4" poster="assets/loop-office.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>孵化器办公</b><span>精装 · 即租即用</span></figcaption></figure>
+      <figure class="reel rv d2"><img src="assets/loop-corridor.jpg" alt=""><video src="assets/loop-corridor.mp4" poster="assets/loop-corridor.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>品质公区</b><span>中国电子商务办公大楼</span></figcaption></figure>
+      <figure class="reel rv d3"><img src="assets/loop-apt.jpg" alt=""><video src="assets/loop-apt.mp4" poster="assets/loop-apt.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>人才公寓</b><span>拎包入住</span></figcaption></figure>
+    </div>
+    <div class="space-row">
+      <div class="facts rv d2">
+        <div class="fact"><svg class="i"><use href="#pin"/></svg><div><b>中国电子商务办公大楼 2 楼</b><small>深圳市龙岗区平湖华南城</small></div></div>
+        <div class="fact"><svg class="i"><use href="#train"/></svg><div><b>地铁华南城站约 300 米</b><small>高速出口直达，通勤物流双便利</small></div></div>
+        <div class="fact"><svg class="i"><use href="#zap"/></svg><div><b>入驻即享政策对接 + 算力礼包</b><small>算力机房 + 孵化器办公 + 人才公寓</small></div></div>
+        <a class="btn btn-o" style="align-self:flex-start" target="_blank" rel="noopener" href="https://uri.amap.com/search?keyword=%E5%B9%B3%E6%B9%96%E5%8D%8E%E5%8D%97%E5%9F%8E%E4%B8%AD%E5%9B%BD%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%8A%9E%E5%85%AC%E5%A4%A7%E6%A5%BC&city=440300">高德地图导航<svg class="i"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" style="padding-top:40px">
+  <div class="wrap">
+    <div class="kicker rv">07 — Roadmap</div>
+    <h2 class="h2 rv d1">三步走，<span class="dim">打造深圳 AI 算力标杆。</span></h2>
+    <div class="road">
+      <div class="step rv"><div class="k">PHASE 01</div><h3>跑通</h3><p>平湖园区选取合适楼栋，部署 GPU 集群与算力调度平台，落地三层业务，跑通算力业务现金流。</p></div>
+      <div class="step rv d1"><div class="k">PHASE 02</div><h3>扩规模</h3><p>沉淀 AI 企业客户，申报市 / 区算力产业示范项目，扩大算力规模，争取政策支持。</p></div>
+      <div class="step rv d2"><div class="k">PHASE 03</div><h3>复制</h3><p>模式标准化，在自有园区内复制，打造深圳 AI 算力孵化集群。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="final" id="contact">
+  <div class="orb"></div>
+  <div class="wrap">
+    <div class="kicker rv" style="justify-content:center">Contact</div>
+    <h2 class="rv d1" style="margin-top:28px">携手炽云，<br><span class="gt">轻装起步。</span></h2>
+    <p class="rv d2">算力咨询、价格表索取、看房预约、训力券申报——一个电话，全部搞定。</p>
+    <a class="tel rv d2" href="tel:13428978692">134 2897 8692</a>
+    <div class="who rv d3">龚伟 · 项目总经理 ｜ 深圳市龙岗区平湖华南城 中国电子商务办公大楼 2 楼</div>
+    <div class="cta rv d3">
+      <a href="tel:13428978692" class="btn btn-w"><svg class="i"><use href="#phone"/></svg>立即致电</a>
+      <a href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener" class="btn btn-o"><svg class="i"><use href="#chat"/></svg>企业微信咨询</a>
+    </div>
+    <div class="qrs rv">
+      <a class="qr" href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">
+        <div class="qr-img"><img src="assets/qr-wecom.png" alt="企业微信二维码"></div>
+        <div class="qr-t"><b>添加企业微信</b><span>扫码或点击，一对一咨询<br>索取实时价格表</span><em>立即添加<svg class="i"><use href="#arrow"/></svg></em></div>
+      </a>
+      <div class="qr">
+        <div class="qr-img"><img src="assets/qr-mp.png" alt="算力星球公众号二维码"></div>
+        <div class="qr-t"><b>关注公众号</b><span>算力行情 · 训力券政策 · 活动福利</span>
+          <div class="sys"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><i>微信搜一搜</i><b>算力星球</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="trust rv">
+      <span><svg class="i"><use href="#shield"/></svg>营业执照 · 对公账户 · 正式协议</span>
+      <span><svg class="i"><use href="#receipt"/></svg>支持对公月结 · 可开增值税专票</span>
+      <span><svg class="i"><use href="#headset"/></svg>7×24 小时真人技术支持</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <a href="#top" class="logo"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b><span>AI-OPC</span></a>
+        <p style="margin-top:18px;max-width:360px;line-height:1.8">深圳市炽云人工智能有限公司 · 深圳平湖全链路 AI 算力基础设施 ｜ AI 创新企业孵化基地</p>
+      </div>
+      <div><h4>业务</h4><a href="#business">算力包</a><a href="#business">弹性 GPU</a><a href="#business">AI 工具超市</a><a href="#space">孵化器入驻</a></div>
+      <div><h4>联系</h4><a href="tel:13428978692">134 2897 8692</a><a href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">企业微信咨询</a><p>公众号：算力星球</p><p>龙岗区平湖华南城<br>中国电子商务办公大楼 2 楼</p></div>
+    </div>
+    <p class="disc">* 训力券以深圳市政府当期政策为准，我们提供申报协助，不承诺补贴结果。页面价格为 2026 年 11 月报价（不含税，有效期至 2026-12-31），长期包与批量采购可另议，以双方签署合同为准；国际模型价格以线下合同为准，不适用页面公开报价。</p>
+    <div class="fb">
+      <span>© 2026 深圳市炽云人工智能有限公司 版权所有</span>
+      <!-- TODO: 备案通过后替换为真实备案号 -->
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备XXXXXXXX号</a>
+    </div>
+  </div>
+</footer>
+
+<div class="dock">
+  <a class="dk" href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener" aria-label="企业微信"><svg class="i"><use href="#chat"/></svg><div class="pop"><img src="assets/qr-wecom.png" alt=""><b>扫码加企微</b><span>134 2897 8692</span></div></a>
+  <a class="dk" href="tel:13428978692" aria-label="电话"><svg class="i"><use href="#phone"/></svg></a>
+</div>
+
+<!-- 智能答疑悬浮入口 -->
+<style>
+.ai-fab{position:fixed;right:20px;bottom:150px;z-index:1000;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;
+  background:linear-gradient(135deg,#2f7cff,#19c8e6);color:#fff;display:grid;place-items:center;
+  box-shadow:0 14px 34px -8px rgba(47,124,255,.7);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.ai-fab:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 18px 40px -8px rgba(47,124,255,.85)}
+.ai-fab svg{width:26px;height:26px}
+.ai-fab::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(80,190,255,.35);animation:aipulse 3s infinite}
+@keyframes aipulse{0%{transform:scale(.9);opacity:.9}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
+.ai-panel{position:fixed;right:20px;top:88px;bottom:24px;z-index:1000;width:408px;
+  background:#0b0f19;border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.85);display:flex;flex-direction:column;
+  opacity:0;transform:translateY(12px) scale(.98);pointer-events:none;transition:all .28s cubic-bezier(.2,.8,.2,1)}
+.ai-panel.on{opacity:1;transform:none;pointer-events:auto}
+.ai-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;
+  background:linear-gradient(135deg,#101a2e,#0d1526);color:#eaf2ff;font-size:13.5px;font-weight:600;letter-spacing:.3px}
+.ai-head span{display:flex;align-items:center;gap:8px}
+.ai-head i{width:7px;height:7px;border-radius:50%;background:#22d3a5;box-shadow:0 0 0 3px rgba(34,211,165,.18)}
+.ai-x{border:0;background:rgba(255,255,255,.08);color:#cfe1ff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1}
+.ai-panel iframe{flex:1;width:100%;border:0;background:#fff}
+body.ai-open .dock{opacity:0;pointer-events:none;transform:translateX(10px)}
+body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
+.dock{transition:opacity .25s ease,transform .25s ease}
+.ai-fab{transition:opacity .2s ease,transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+@media (max-width:640px){
+  .ai-fab{right:16px;bottom:140px}
+  .ai-panel{right:12px;left:12px;top:auto;bottom:12px;width:auto;height:min(78dvh,680px)}
+}
+</style>
+<button class="ai-fab" id="aiFab" aria-label="智能答疑">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.3 9.3 0 0 1-3.6-.7L3 21l1.9-4.8A8.4 8.4 0 1 1 21 11.5z"/>
+    <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/>
+  </svg>
+</button>
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-head"><span><i></i>智能答疑 · 资料直答</span><button class="ai-x" id="aiClose" aria-label="关闭">×</button></div>
+  <iframe id="aiFrame" title="智能答疑" loading="lazy"></iframe>
+</div>
+<script>
+(function(){
+  var fab=document.getElementById('aiFab'),panel=document.getElementById('aiPanel'),frame=document.getElementById('aiFrame');
+  var SRC='https://wenwanqing1217.github.io/chiyun-share/?embed=1&bar=0&v=9';
+  function open(){ if(!frame.getAttribute('src')) frame.src=SRC; panel.classList.add('on'); document.body.classList.add('ai-open'); }
+  function close(){ panel.classList.remove('on'); document.body.classList.remove('ai-open'); }
+  fab.onclick=function(){ panel.classList.contains('on')?close():open(); };
+  document.getElementById('aiClose').onclick=close;
+  addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+
+<script>
+// nav
+const hdr=document.getElementById('hdr');const onS=()=>hdr.classList.toggle('s',scrollY>10);addEventListener('scroll',onS,{passive:true});onS();
+const menu=document.getElementById('menu');document.getElementById('burger').onclick=()=>menu.classList.toggle('open');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+// marquee
+const gpus=['NVIDIA H200','H100','H800','H20','A100','A800','L40S','L20','RTX 5090','RTX 4090','PRO 6000','昇腾 910C','昇腾 910B2','昆仑芯 P800','海光 BW1000','摩尔线程 S4000'];
+const mq=document.getElementById('mq');const s=gpus.map(g=>`<span>${g}</span>`).join('');mq.innerHTML=s+s;
+
+
+// brand film (with still-frame fallback if the browser can't play video)
+const v=document.getElementById('vid'),film=document.getElementById('film'),vb=document.getElementById('vbtn'),vi=document.getElementById('vico');
+const PAUSE='<path d="M8 5h3v14H8zM13 5h3v14h-3z"/>',PLAY='<path d="M7 4v16l13-8z"/>';
+let slideT=null;function fallback(){if(film.classList.contains('fallback'))return;film.classList.add('fallback');const im=[...document.querySelectorAll('#slides img')];let i=0;im[0].classList.add('on');
+  slideT=setInterval(()=>{im[i].classList.remove('on');i=(i+1)%im.length;im[i].classList.add('on')},4400)}
+v.addEventListener('error',fallback,true);const vs=v.querySelector('source');if(vs)vs.addEventListener('error',fallback);else fallback();
+setTimeout(()=>{if(v.readyState<2||v.paused&&v.currentTime===0){const p=v.play();if(p&&p.catch)p.catch(fallback);setTimeout(()=>{if(v.readyState<2||v.currentTime===0)fallback()},1500)}},2000);
+vb.onclick=()=>{if(film.classList.contains('fallback')){if(slideT){clearInterval(slideT);slideT=null;vi.innerHTML=PLAY}else{film.classList.remove('fallback');fallback();vi.innerHTML=PAUSE}return}
+  if(v.paused){v.play();vi.innerHTML=PAUSE}else{v.pause();vi.innerHTML=PLAY}};
+// card glow follow
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')}));
+
+// count-up
+function count(el){const t=+el.dataset.n,sup=el.querySelector('sup').outerHTML,d=1400,s0=performance.now();
+  const f=n=>{const k=Math.min(1,(n-s0)/d),e=1-Math.pow(1-k,3);el.innerHTML=Math.round(t*e)+sup;if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');
+  t.querySelectorAll&&t.querySelectorAll('[data-n]').forEach(count);io.unobserve(t)}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,#sh').forEach(el=>io.observe(el));
+
+// pricing — 炽云 2026-11 报价（不含税，有效期至 2026-12-31）
+const P={"gpu": {"h": ["卡型", "显存", "价格（元/卡·时）", "单卡月参考（730 时）", "适用场景"], "cols": "1.4fr .7fr 1.1fr 1.2fr 1.6fr", "r": [["RTX 4090", "24GB", "1.94", "≈ 1,416 元", "推理 / 微调 / 中小模型训练"], ["RTX 4090", "48GB", "2.96", "≈ 2,161 元", "推理 / 微调 / 中小模型训练"], ["RTX 5090", "32GB", "3.19", "≈ 2,329 元", "高性价比训练与推理"], ["H20-96GB", "96GB", "11.76", "≈ 8,585 元", "大模型推理与部署"], ["H20-141GB", "141GB", "12.74", "≈ 9,300 元", "大模型推理与部署"], ["H800", "80GB", "19.11", "≈ 13,950 元", "大模型训练"], ["H100", "80GB", "22.05", "≈ 16,096 元", "大模型训练 / 高性能推理"], ["H200", "141GB", "34.30", "≈ 25,039 元", "大模型推理与部署"], ["PRO6000", "96GB", "12.74", "≈ 9,300 元", "专业图形与推理"], ["PRO6000D", "84GB", "10.78", "≈ 7,869 元", "专业图形与推理"], ["A100-80G", "80GB", "11.17", "≈ 8,154 元", "经典训练卡"], ["A100-40G", "40GB", "4.02", "≈ 2,935 元", "经典训练卡"], ["A800-80G", "80GB", "8.04", "≈ 5,869 元", "训练 / 推理"], ["A800", "40GB", "3.33", "≈ 2,431 元", "训练 / 推理"], ["L20", "48GB", "3.92", "≈ 2,862 元", "推理 / 渲染"], ["L40", "48GB", "4.41", "≈ 3,219 元", "推理 / 渲染"], ["L40S", "48GB", "4.88", "≈ 3,562 元", "推理 / 渲染"], ["摩尔线程S4000", "48GB", "2.45", "≈ 1,788 元", "信创 / 国产替代"], ["昇腾910B2", "64GB", "4.12", "≈ 3,008 元", "信创 / 国产替代"], ["海光BW1000", "64GB", "6.86", "≈ 5,008 元", "信创 / 国产替代"], ["昆仑芯P800", "96GB", "8.33", "≈ 6,081 元", "信创 / 国产替代"], ["昇腾910C", "128GB", "12.94", "≈ 9,446 元", "信创 / 国产替代"]], "hot": [0, 6, 7], "note": "1 卡起租，按秒计费，关机即停止计费；含 NVIDIA 全系与昇腾、昆仑芯、海光、摩尔线程等国产信创算力。"}, "metal": {"h": ["机型（8 卡整机）", "显存", "时租", "24 小时包", "7 天包", "30 天包", "折合单卡时价"], "cols": "1.4fr .7fr .9fr 1fr 1.1fr 1.2fr 1fr", "r": [["RTX 4090", "24GB", "15.52", "361.38", "2,453.77", "9,254.22", "1.94"], ["RTX 4090", "48GB", "23.68", "551.19", "3,742.62", "14,115.03", "2.96"], ["RTX 5090", "32GB", "27.44", "638.80", "4,337.47", "16,358.47", "3.43"], ["H20-96GB", "96GB", "94.08", "2,190.18", "14,871.34", "56,086.19", "11.76"], ["H20-141GB", "141GB", "101.92", "2,372.70", "16,110.61", "60,760.04", "12.74"], ["H800", "80GB", "152.88", "3,559.05", "24,165.93", "91,140.06", "19.11"], ["H100", "80GB", "176.40", "4,106.59", "27,883.76", "105,161.60", "22.05"], ["H200", "141GB", "274.40", "6,388.03", "43,374.74", "163,584.73", "34.30"], ["PRO6000", "96GB", "101.92", "2,372.70", "16,110.61", "60,760.04", "12.74"], ["PRO6000D", "84GB", "86.24", "2,007.67", "13,632.06", "51,412.34", "10.78"], ["A100-80G", "80GB", "89.38", "2,080.68", "14,127.77", "53,281.88", "11.17"], ["A100-40G", "40GB", "32.14", "748.31", "5,081.05", "19,162.78", "4.02"], ["A800-80G", "80GB", "64.29", "1,496.63", "10,162.08", "38,325.57", "8.04"], ["A800", "40GB", "26.66", "620.56", "4,213.55", "15,891.09", "3.33"], ["L20", "48GB", "31.36", "730.06", "4,957.11", "18,695.40", "3.92"], ["L40", "48GB", "35.28", "821.32", "5,576.75", "21,032.32", "4.41"], ["L40S", "48GB", "39.04", "908.93", "6,171.61", "23,275.76", "4.88"], ["摩尔线程S4000", "48GB", "19.60", "456.29", "3,098.19", "11,684.62", "2.45"], ["昇腾910B2", "64GB", "32.93", "766.57", "5,204.97", "19,630.16", "4.12"], ["海光BW1000", "64GB", "54.88", "1,277.61", "8,674.95", "32,716.95", "6.86"], ["昆仑芯P800", "96GB", "66.64", "1,551.38", "10,533.86", "39,727.72", "8.33"], ["昇腾910C", "128GB", "103.49", "2,409.20", "16,358.47", "61,694.81", "12.94"]], "hot": [0], "note": "单位：元/台。8 卡整机独享，按小时起租、用完即还；包期越长单价越低。"}, "job": {"h": ["卡型", "显存", "按量（元/卡·时）", "抢占式（元/卡·时）", "适用场景"], "cols": "1.4fr .7fr 1.1fr 1.1fr 1.6fr", "r": [["RTX 4090", "24GB", "1.94", "1.17", "推理 / 微调 / 中小模型训练"], ["RTX 5090", "32GB", "3.19", "1.91", "高性价比训练与推理"], ["H20", "96GB", "11.76", "7.06", "大模型推理与部署"], ["L20", "48GB", "3.92", "2.35", "推理 / 渲染"], ["A800", "80GB", "7.64", "4.59", "训练 / 推理"], ["H800", "80GB", "24.50", "14.70", "大模型训练"], ["L40", "48GB", "4.41", "2.65", "推理 / 渲染"], ["L40S", "48GB", "4.88", "2.93", "推理 / 渲染"]], "hot": [0], "note": "按量实例稳定独占；抢占实例约为按量 6 折，可能被回收，适用于可中断任务。"}, "llm": {"h": ["模型", "厂商", "输入", "输出", "缓存命中", "适用场景"], "cols": "1.5fr .9fr .8fr .8fr .8fr 1.3fr", "r": [["Kimi K3", "月之暗面", "19.60", "98.00", "1.96", "长文本 / Agent"], ["GLM 5.2", "智谱", "7.84", "27.44", "1.96", "中文通用"], ["DeepSeek V4 Pro", "DeepSeek", "2.94", "5.88", "0.02", "代码 / 深度推理"], ["DeepSeek V4 Flash", "DeepSeek", "0.98", "1.96", "0.02", "高并发 / 低成本"], ["Kimi K2.6", "月之暗面", "6.37", "26.46", "1.078", "长上下文"], ["Qwen 3.7 Max", "阿里巴巴", "11.76", "35.28", "1.176", "中文通用 / 多模态"], ["Tencent/hy3-preview", "腾讯", "1.18", "3.92", "0.392", "通用"]], "hot": [2], "note": "单位：元/百万 tokens。统一 Key 接入，按量计费，无订阅费、无最低消费。"}, "intl": {"notice": true, "note": "国际模型仅面向境外用户及境内企业合规自用场景提供，不面向中国大陆境内公众用户开放自助购买；价格与开通方式以线下签署合同为准。境内公开服务均为已备案国产大模型。"}, "sto": {"h": ["存储类型", "计费方式", "价格（元/GB/月）", "包含项"], "cols": "1fr 1fr 2fr 1.4fr", "r": [["镜像仓库", "按镜像存储容量", "0.245", "按镜像体积计费"], ["对象存储加速", "按加速流量计费", "文件系统存储 0.147 + 集群缓存 0.147", "文件系统存储、集群缓存"], ["共享存储卷", "按存储实际用量计费", "文件系统存储 0.196 + 区域缓存 0.147 + 对象存储流量 0.196", "文件系统存储、区域缓存、对象存储流量"]], "hot": [], "note": "存储与计算资源解耦，按实际用量结算。"}};
+const tbl=document.getElementById('tbl'),pn=document.getElementById('pnote');
+function render(k){const d=P[k];
+  if(d.notice){tbl.innerHTML=`<div style="border:1px solid var(--line-2);border-radius:20px;padding:44px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))">
+    <div style="font-size:22px;font-weight:600;letter-spacing:-.01em">国际主流模型 · 企业渠道接入</div>
+    <p style="font-size:15px;color:var(--ink-2);line-height:1.9;margin:14px 0 24px">国际模型资源由合作渠道统一供给，覆盖海外主流厂商的旗舰、主力与轻量型号，统一 Key 接入、按量计费，具体可用型号以签约时确认为准。</p>
+    <div style="display:grid;gap:14px;font-size:14px;color:var(--ink-2);line-height:1.85">
+      <div><b style="color:var(--ink)">服务对象</b>　境外用户，以及有科研、出海业务等合规需求并完成线下签约的境内企业客户</div>
+      <div><b style="color:var(--ink)">接入方式</b>　企业渠道洽谈开通，签署合同后发放统一 Key，不设公开自助购买</div>
+      <div><b style="color:var(--ink)">价格</b>　以双方签署的合同为准，支持按量与包年包月，随汇率联动调整</div>
+    </div>
+    <div style="margin-top:26px"><a href="#contact" class="btn">获取国际模型企业报价<svg class="i"><use href="#arrow"/></svg></a></div>
+  </div>`;pn.textContent=d.note;return}let o=`<div class="tbl-in" style="--cols:${d.cols}"><div class="tr h">${d.h.map(x=>`<div>${x}</div>`).join('')}</div>`;
+  d.r.forEach((r,i)=>{o+='<div class="tr">'+r.map((c,j)=>{
+    if(j===0)return `<div class="n">${c}${d.hot.includes(i)?'<span class="hot">HOT</span>':''}</div>`;
+    if(j===1)return `<div class="m">${c}</div>`;
+    const isNum=/^[≈$\d]/.test(c)&&!/折/.test(c);
+    return isNum?`<div class="v${j>2&&k!=='metal'&&k!=='llm'&&k!=='intl'?' dim':''}">${c}</div>`:`<div class="s">${c}</div>`}).join('')+'</div>'});
+  tbl.innerHTML=o+'</div>';pn.textContent=d.note+' 价格不含税，报价有效期至 2026 年 12 月 31 日。'}
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#seg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');render(b.dataset.t)});
+render('gpu');
+</script>
+</body>
+</html>
