@@ -324,7 +324,6 @@ function answer(q){
         }
         return '<h3>'+esc(d.t)+'</h3>'+body+'<span class="src">来源：'+esc(d.s)+'</span>';
       }).join("");
-      if(model && list.some(d=>d.x.indexOf("|")>=0)) html+='<p class="src">以上仅显示与 '+esc(model)+' 相关的机型。</p>';
     }
     typing.querySelector(".bubble").innerHTML=html;
     const chat=document.getElementById("chat");
