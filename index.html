@@ -59,10 +59,13 @@ header.s{background:rgba(5,7,13,.72);backdrop-filter:saturate(160%) blur(18px);-
 .nav{height:76px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:12px}
 .logo>a{display:flex;align-items:center;gap:12px}
+.logo img{height:26px;width:auto}
 .logo b{font-weight:600;font-size:17px;letter-spacing:.02em}
 .logo span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;border-left:1px solid var(--line-2);padding-left:12px}
-.logo .in-entry{margin-left:0;padding-left:12px;border-left:1px solid var(--line-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);opacity:.38;transition:opacity .25s,color .25s}
-.logo .in-entry:hover{opacity:1;color:var(--ink-2)}
+.logo .in-entry{margin-left:0;padding-left:12px;border-left:1px solid var(--line-2);font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;transition:color .25s;display:inline-flex;align-items:center;gap:6px}
+.logo .in-entry img{height:16px;width:16px;border-radius:4px;opacity:.85}
+.logo .in-entry:hover{color:var(--ink-2)}
+.logo .in-entry:hover img{opacity:1}
 .menu{display:flex;gap:36px;font-size:14px;color:var(--ink-2)}
 .menu a{position:relative;transition:color .2s}
 .menu a:hover{color:var(--ink)}
@@ -258,6 +261,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:13px;color
 .ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
 .ft h4{font-size:12px;font-family:var(--mono);letter-spacing:.14em;color:var(--ink-2);font-weight:500;margin-bottom:16px}
 .ft p,.ft a{display:block;line-height:2}
+.ft .logo>a{display:flex;align-items:center;gap:12px;line-height:1}
 .ft a:hover{color:var(--ink)}
 .fb{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:12px}
 .disc{font-size:12px;line-height:1.8;margin-top:16px;opacity:.8}
@@ -415,12 +419,13 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
 
 <header id="hdr">
   <div class="wrap nav">
-    <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部入口">内部</a></div>
+    <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部工作台"><img src="assets/logo-mark.png" alt="">AI-OPC</a></div>
     <nav class="menu" id="menu">
-      <a href="#about">关于</a><a href="#business">业务</a><a href="#pricing">价格</a><a href="#why">优势</a><a href="#space">孵化空间</a><a href="#contact">联系</a>
-      <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="m-login">共绩算力 · 登录 / 注册</a>
+      <a href="#about">关于</a><a href="#business">业务</a><a href="#pricing">价格</a><a href="#why">优势</a><a href="#space">孵化空间</a><a href="recruit.html">合伙人招募</a><a href="#contact">联系</a>
+      <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="m-login">共绩算力 · 客户登录</a>
+      <a href="console.html" class="m-login">内部工作台 · 团队登录</a>
     </nav>
-    <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="btn btn-w"><svg class="i"><use href="#user"/></svg>登录 / 注册</a>
+    <a href="console.html" class="btn btn-w" title="合伙人/团队内部工作台"><svg class="i"><use href="#user"/></svg>内部工作台</a>
     <button class="burger" id="burger" aria-label="菜单"><svg class="i" style="width:26px;height:26px"><use href="#menu-i"/></svg></button>
   </div>
 </header>
@@ -603,7 +608,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
           <li><svg class="i"><use href="#check"/></svg>国内领先的闲时算力共享平台，接入 70 万台设备，SLA ≥ 99.99%</li>
           <li><svg class="i"><use href="#check"/></svg>GPU 弹性实例 · 裸金属整机 · Job 批处理 · 存储，全线由共绩供给</li>
           <li><svg class="i"><use href="#check"/></svg>国产大模型 API：Kimi · GLM · DeepSeek · Qwen · 腾讯混元</li>
-          <li><svg class="i"><use href="#check"/></svg>授权炽云推广销售，专属邀请码开通，月度结算</li>
+          <li><svg class="i"><use href="#check"/></svg>授权炽云市场推广，专属邀请码开通，月度结算</li>
         </ul>
         <div class="seal"><i></i>已签署合作协议 · 2026.10</div>
       </div>
@@ -666,6 +671,19 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
   </div>
 </section>
 
+<!-- 合伙人招募入口 -->
+<section id="partner" style="padding-top:80px;padding-bottom:20px">
+  <div class="wrap">
+    <div class="kicker rv">08 — Partner</div>
+    <h2 class="h2 rv d1">招合伙人，<span class="dim">一块把事做大。</span></h2>
+    <p class="rv d1" style="max-width:560px;margin-top:18px;color:var(--ink-2);line-height:1.9">0 投入 · 0 风险 · 纯佣金：客户月花 2000，你拿 60，客户一直用你一直拿；老合伙人带你上手，带团队另有津贴。规则、报价、佣金算法，全都写得明明白白。</p>
+    <div class="rv d2" style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
+      <a href="recruit.html" class="btn btn-w">成为合伙人 · 看完整方案<svg class="i"><use href="#arrow"/></svg></a>
+      <a href="console.html" class="btn btn-o">进入内部工作台<svg class="i"><use href="#arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="final" id="contact">
   <div class="orb"></div>
@@ -703,13 +721,13 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
   <div class="wrap">
     <div class="ft">
       <div>
-        <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部入口">内部</a></div>
+        <div class="logo"><a href="#top"><img src="assets/logo-mark.png" alt=""><b>炽云AI</b></a><a href="console.html" class="in-entry" title="内部工作台"><img src="assets/logo-mark.png" alt="">AI-OPC</a></div>
         <p style="margin-top:18px;max-width:360px;line-height:1.8">深圳市炽云人工智能有限公司 · 深圳平湖全链路 AI 算力基础设施 ｜ AI 创新企业孵化基地</p>
       </div>
-      <div><h4>业务</h4><a href="#business">算力包</a><a href="#business">弹性 GPU</a><a href="#business">AI 工具超市</a><a href="#space">孵化器入驻</a></div>
+      <div><h4>业务</h4><a href="#business">算力包</a><a href="#business">弹性 GPU</a><a href="#business">AI 工具超市</a><a href="#space">孵化器入驻</a><a href="recruit.html">合伙人招募</a></div>
       <div><h4>联系</h4><a href="tel:13428978692">134 2897 8692</a><a href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">企业微信咨询</a><p>公众号：算力星球</p><p>龙岗区平湖华南城<br>中国电子商务办公大楼 2 楼</p></div>
     </div>
-    <p class="disc">* 训力券以深圳市政府当期政策为准，我们提供申报协助，不承诺补贴结果。页面价格为 2026 年 11 月报价（不含税，有效期至 2026-12-31），长期包与批量采购可另议，以双方签署合同为准；国际模型价格以线下合同为准，不适用页面公开报价。</p>
+    <p class="disc">* 训力券以深圳市政府当期政策为准，我们提供申报协助，不承诺补贴结果。页面价格为 2026 年 11 月报价（不含税，有效期至 2027-10-26），长期包与批量采购可另议，以双方签署合同为准；国际模型价格以线下合同为准，不适用页面公开报价。</p>
     <div class="fb">
       <span>© 2026 深圳市炽云人工智能有限公司 版权所有</span>
       <!-- TODO: 备案通过后替换为真实备案号 -->
@@ -765,7 +783,7 @@ body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
 <script>
 (function(){
   var fab=document.getElementById('aiFab'),panel=document.getElementById('aiPanel'),frame=document.getElementById('aiFrame');
-  var VER='202611171519';
+  var VER='202611191807';
   var SRC='ai.html?embed=1&bar=0&v='+VER;
   function preload(){ if(!frame.getAttribute('src')) frame.src=SRC; }
   function open(){ preload(); panel.classList.add('on'); document.body.classList.add('ai-open'); }

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炽云AI · 线上合伙人招募 — 客户花2000，你拿60</title>
+<meta name="description" content="炽云AI 线上合伙人团队招募：0投入0风险纯提成。AI算力按小时计费（4090每卡时1.94元、98折），佣金按客户实际消费直接算，客户月花2000你拿60，明白账。">
+<style>
+:root{
+  --bg:#05070d; --bg2:#0a0e18; --panel:#0d1220; --line:rgba(255,255,255,.08);
+  --ink:#f4f6fb; --mut:#8a93a8; --accent:#5b8cff;
+  --au:linear-gradient(180deg,#a8c4ff 0%,#7aa2ff 38%,#5b8cff 72%,#38d6f5 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Inter","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative}
+::selection{background:rgba(91,140,255,.35)}
+.au{background:var(--au);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(5,7,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:700;letter-spacing:.04em;font-size:16px}
+.logo i{font-style:normal;color:var(--accent)}
+nav .cta{font-size:13px;padding:8px 18px;border:1px solid rgba(91,140,255,.5);border-radius:99px;transition:.25s}
+nav .cta:hover{background:rgba(91,140,255,.14);border-color:var(--accent)}
+
+/* hero */
+.hero{padding:110px 0 80px;text-align:center}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(640px 320px at 50% -5%,rgba(91,140,255,.18),transparent 70%);pointer-events:none}
+.tag{display:inline-block;font-size:12px;letter-spacing:.3em;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:6px 20px;margin-bottom:28px;background:rgba(255,255,255,.02)}
+h1{font-size:clamp(34px,6vw,60px);font-weight:800;line-height:1.22;letter-spacing:.01em}
+.sub{max-width:640px;margin:24px auto 0;color:var(--mut);font-size:16px}
+.hero .nums{display:flex;justify-content:center;gap:14px;margin-top:46px;flex-wrap:wrap}
+.hero .nums div{border:1px solid var(--line);border-radius:12px;padding:18px 30px;background:rgba(255,255,255,.02);min-width:150px}
+.hero .nums b{display:block;font-size:26px}
+.hero .nums span{font-size:12px;color:var(--mut);letter-spacing:.1em}
+
+/* 拆账条 */
+.ledger{margin-top:22px;border:1px solid rgba(201,154,82,.35);border-radius:14px;padding:26px 30px;background:linear-gradient(180deg,rgba(201,154,82,.07),rgba(201,154,82,.015))}
+.ledger .row{display:flex;align-items:baseline;justify-content:center;gap:10px;flex-wrap:wrap;font-size:clamp(17px,2.6vw,24px);font-weight:600}
+.ledger .sep{color:var(--mut);font-weight:400;font-size:15px}
+.ledger small{display:block;text-align:center;color:var(--mut);font-size:12.5px;margin-top:10px}
+
+/* sections */
+section{padding:80px 0;border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.28em;color:var(--accent);margin-bottom:14px}
+h2{font-size:clamp(24px,3.6vw,34px);font-weight:700;line-height:1.35;margin-bottom:14px}
+.lead{color:var(--mut);max-width:660px;margin-bottom:40px}
+
+/* commission table */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;padding:12px 14px;color:var(--mut);font-weight:500;font-size:12px;letter-spacing:.12em;border-bottom:1px solid var(--line)}
+.tbl td{padding:15px 14px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle}
+.tbl tr:hover td{background:rgba(91,140,255,.05)}
+.tbl td.r,.tbl th.r{text-align:right;font-variant-numeric:tabular-nums}
+.tbl b{font-size:16px}
+.tbl .ex{color:var(--mut);font-size:12.5px}
+.cardrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:36px}
+.card{border:1px solid var(--line);border-radius:14px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));transition:.3s}
+.card:hover{border-color:rgba(91,140,255,.4);transform:translateY(-3px)}
+.card h3{font-size:16px;margin-bottom:10px}
+.card p{color:var(--mut);font-size:13.5px}
+.card .ex{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:var(--mut)}
+.card .ex b{color:var(--ink)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.step{border:1px solid var(--line);border-radius:14px;padding:28px 24px;background:rgba(255,255,255,.02);transition:.3s}
+.step:hover{border-color:rgba(91,140,255,.4)}
+.step .no{font-size:13px;color:var(--accent);letter-spacing:.2em;margin-bottom:12px;display:block}
+.step h3{font-size:16px;margin-bottom:8px}
+.step p{color:var(--mut);font-size:13.5px}
+
+/* lines grid */
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.line{border:1px solid var(--line);border-radius:10px;padding:18px 16px;text-align:center;transition:.25s;background:rgba(255,255,255,.015)}
+.line:hover{border-color:rgba(91,140,255,.5);transform:translateY(-3px)}
+.line b{display:block;font-size:14px;margin-bottom:4px}
+.line span{font-size:12px;color:var(--mut)}
+
+/* faq */
+.faq{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.015)}
+.faq details{border-bottom:1px solid rgba(255,255,255,.05)}
+.faq details:last-child{border-bottom:none}
+.faq summary{padding:20px 24px;cursor:pointer;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::after{content:"+";color:var(--accent);font-size:20px;transition:.25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 24px 22px;color:var(--mut);font-size:13.5px;max-width:760px}
+
+/* note */
+.note{border:1px solid rgba(91,140,255,.35);border-radius:14px;padding:26px;background:linear-gradient(180deg,rgba(91,140,255,.06),transparent)}
+.note h3{font-size:15px;margin-bottom:10px}
+.note ul{list-style:none}
+.note li{color:var(--mut);font-size:13.5px;padding:5px 0 5px 18px;position:relative}
+.note li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--accent)}
+
+/* cta */
+.cta-box{text-align:center;padding:90px 0}
+.cta-box .big{font-size:clamp(26px,4.5vw,40px);font-weight:800;margin-bottom:16px}
+.cta-box p{color:var(--mut);margin-bottom:36px}
+.btn{display:inline-block;padding:15px 44px;border-radius:99px;font-size:15px;font-weight:600;background:var(--au);color:#05070d;transition:.25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,154,82,.25)}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink);margin-left:14px}
+.btn.ghost:hover{border-color:var(--accent);box-shadow:none}
+
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--mut);font-size:12px;text-align:center}
+
+/* 进场动效 */
+.fx{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.fx.in{opacity:1;transform:none}
+@media(max-width:640px){.hero{padding:70px 0 56px}.tbl{font-size:13px}.tbl th,.tbl td{padding:10px 8px}.ledger .row{font-size:15px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">炽云<i>AI</i></div>
+    <a class="cta" href="#join">申请加入</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="tag">线上合伙人 · 长期招募</div>
+    <h1>账就一句话：<br>客户花 <span class="au">2000</span>，你拿 <span class="au">60</span></h1>
+    <p class="sub">0 投入 · 0 风险 · 纯提成。AI 算力按小时计费——4090 每卡时 1.94 元（98 折），客户跑模型、做渲染本来就要花，你只需要把这个价递到他面前。佣金按客户实际消费算，每月一结。</p>
+    <div class="ledger">
+      <div class="row">客户月花 <span class="au">¥2,000</span><span class="sep">→</span>你首月拿 <span class="au">¥60</span><span class="sep">→</span>之后每个月都拿 <span class="au">¥30</span></div>
+      <small>以 GPU 算力为例（1.94 元/卡时，2000 元 ≈ 1030 卡时）· 各业务线比例见下表 · 客户消费多久你拿多久，离职时未结算的照发</small>
+    </div>
+  </div>
+</header>
+
+<section id="commission">
+  <div class="wrap fx">
+    <div class="eyebrow">COMMISSION</div>
+    <h2>各业务线：实付金额 × 比例，就乘一下</h2>
+    <p class="lead">不用理解什么毛利成本。客户付了多少，乘一下就是你的。比例给得实在——不多画饼，也不抠门。</p>
+    <div class="card" style="padding:10px 6px">
+      <table class="tbl">
+        <tr><th>业务线</th><th class="r">首月</th><th class="r">续费月</th><th>直白账</th></tr>
+        <tr><td><b>GPU 算力</b>（主力）</td><td class="r"><b class="au">3%</b></td><td class="r"><b class="au">1.5%</b></td><td class="ex">月花 2000 → 拿 60，之后每月 30</td></tr>
+        <tr><td>海外大模型 API</td><td class="r"><b class="au">3%</b></td><td class="r"><b class="au">2%</b></td><td class="ex">花 3000 → 拿 90，之后每月 60</td></tr>
+        <tr><td>裸金属服务器</td><td class="r"><b class="au">3%</b></td><td class="r"><b class="au">1.5%</b></td><td class="ex">单笔大，一单顶好几单</td></tr>
+        <tr><td>训力券</td><td class="r"><b class="au">3%</b></td><td class="r"><b class="au">2%</b></td><td class="ex">训练算力预付费</td></tr>
+        <tr><td><b>整机服务器售卖</b>（大额）</td><td class="r"><b class="au">2%</b></td><td class="r"><b class="au">2%</b></td><td class="ex">10 万的机器 → 一次拿 2000</td></tr>
+        <tr><td>建站 / 开发服务</td><td class="r"><b class="au">10%</b></td><td class="r"><b class="au">5%</b></td><td class="ex">8000 的单 → 一次拿 800</td></tr>
+        <tr><td>OPC 电商孵化</td><td class="r"><b class="au">8%</b></td><td class="r"><b class="au">6%</b></td><td class="ex">月服务费持续拿</td></tr>
+        <tr><td>公寓出租</td><td class="r"><b class="au">20%</b></td><td class="r"><b class="au">10%</b></td><td class="ex">2000 月租 → 首月拿 400</td></tr>
+        <tr><td>合伙人津贴</td><td class="r" colspan="2"><b class="au">下级佣金 × 25%</b></td><td class="ex">下级每挣 4 块，你拿 1 块（见下）</td></tr>
+      </table>
+    </div>
+    <div class="cardrow">
+      <div class="card fx"><h3>算笔账 · 一个客户一年</h3><p>客户每月花 2000 跑算力，一年 24000。</p><div class="ex">你拿：60×1 + 30×11 = <b>390 元/年/客户</b>。客户一直消费你一直拿，攒十个稳定客户就是<b>近四千/年</b>的底仓。</div></div>
+      <div class="card fx"><h3>算笔账 · 合伙人</h3><p>你带 5 个人，每人月流水 1 万，团队月流水 5 万。</p><div class="ex">下级佣金合计约 1500（按首月 3% 算），你的津贴 = 25% ≈ <b>375 元/月</b>，自己开单照拿，两条腿走路。</div></div>
+      <div class="card fx"><h3>算笔账 · 建站大单</h3><p>谈成一个 8000 元的官网建站。</p><div class="ex">你一次拿 <b>800 元</b>，后续维护续费再拿 5%。</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="grow">
+  <div class="wrap fx">
+    <div class="eyebrow">GROWTH</div>
+    <h2>想带团队？津贴这样拿</h2>
+    <p class="lead">拉人不审批、不交钱、不看谁脸色：生成你的专属邀请码，邀来的人自动挂你名下。团队津贴设一个实在的门槛——<b>直接下级满 2 人、团队当月流水满 5000</b>，你就从下级的佣金里划 25% 当津贴（下级每挣 4 块，你拿 1 块，他账单上写得明明白白）；不达标的月份不划、不倒扣。带一个兵躺赚的那种，在我们这儿行不通，津贴是留给真带团队的人的。</p>
+    <div class="steps">
+      <div class="step fx"><span class="no">STEP 01</span><h3>推广成员</h3><p>邀请码注册即入职。自己开单拿佣金，客户跟着你的服务走——客户在消费，收益就是你的。</p></div>
+      <div class="step fx"><span class="no">STEP 02</span><h3>合伙人</h3><p>下级满 2 人、团队月流水满 5000，自动激活团队津贴：从每个直接下级的佣金里划 25% 给你。下级越多、挣得越多，津贴越厚。</p></div>
+      <div class="step fx"><span class="no">STEP 03</span><h3>持续裂变</h3><p>你邀来的人账号直接带你的前缀（如 CY001-K3 注册的自动是 CY001 系），客户和归属永久跟着你；你的下级也能继续邀人。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap fx">
+    <div class="eyebrow">HOW IT WORKS</div>
+    <h2>三步上手，全程线上</h2>
+    <p class="lead">不打卡、不坐班、不开会。你的交付物只有一个：客户报备。</p>
+    <div class="steps">
+      <div class="step fx"><span class="no">01 · 入职</span><h3>邀请码注册</h3><p>向上级要一个邀请码，工作台注册，账号秒开（要填你本人的手机号，这是佣金归属的凭证）。报价单、话术、素材全在共享资料库里自己拿。</p></div>
+      <div class="step fx"><span class="no">02 · 谈客</span><h3>报手机号享 98 折</h3><p>话术就一句："报个手机号登记下，全程享 98 折。"客户为了折扣自然给你真号——号一登记，客户就跟你的名字绑定了。</p></div>
+      <div class="step fx"><span class="no">03 · 报备结算</span><h3>工作台一填，佣金当场算</h3><p>客户手机号和金额填进工作台，页面当场显示这单你拿多少。价格由公司统一出、客户在平台直接付款、月底按实际消费流水结佣——你只管谈，不碰钱、不担账。</p></div>
+    </div>
+    <div class="note" style="margin-top:36px">
+      <h3>为什么单子要走公司？这不是多此一举</h3>
+      <ul>
+        <li>你拿到手的不只是佣金：合作方渠道和 98 折价格、统一报价与结算、客户归属与佣金系统、规则与争议裁判——这四样个人一样都搭不起来，公司收的差价买的就是这套底座。你一个人接单，收款、记账、扯皮全是自己的事。</li>
+        <li>报价统一由公司出，合伙人不自行改价、不私下收款：一是对客户公平，二是你的佣金才有结算依据。</li>
+        <li>私下绕开平台成交（低价另谈、不走报备）= 放弃自己的佣金凭证，客户也拿不到 98 折和售后保障；查实按合作协议追责。规则保护的是认真做事的人。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="lines">
+  <div class="wrap fx">
+    <div class="eyebrow">BUSINESS LINES</div>
+    <h2>八条业务线，都能卖</h2>
+    <p class="lead">算力走量打底，整机售卖冲大额——客户要什么就推什么，全部一个工作台报备。</p>
+    <div class="lines">
+      <div class="line"><b>GPU 算力</b><span>4090 等，按卡时计费</span></div>
+      <div class="line"><b>海外大模型</b><span>GPT / Claude 额度</span></div>
+      <div class="line"><b>裸金属</b><span>整机柜大客户</span></div>
+      <div class="line"><b>整机售卖</b><span>服务器买断，单笔大</span></div>
+      <div class="line"><b>训力券</b><span>训练预付费</span></div>
+      <div class="line"><b>OPC 电商孵化</b><span>店铺代运营</span></div>
+      <div class="line"><b>公寓出租</b><span>长租房源</span></div>
+      <div class="line"><b>建站开发</b><span>官网 / 小程序</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap fx">
+    <div class="eyebrow">GROW WITH US</div>
+    <h2>来时什么都不懂，走时带走一身本事</h2>
+    <p class="lead">我们不只给佣金，还给手艺。三级成长阶梯，每一级都有对应的收入结构变化。</p>
+    <div class="steps">
+      <div class="step fx"><span class="no">L1 · 进门</span><h3>会卖卡时</h3><p>7 天上岗营：产品表、话术、报备演示，跑通"报备→成交→佣金到账"全流程。AI 算力人人可卖，这一级赚的是辛苦钱，也是所有本事的地基。</p></div>
+      <div class="step fx"><span class="no">L2 · 认证</span><h3>会卖方案</h3><p>过一次产品考核，解锁建站 10%、OPC 8%、公寓 20% 高毛利线——同样的努力，收入比例直接翻三倍。公司教你用 AI 写获客文案、做海报、出配置方案。</p></div>
+      <div class="step fx"><span class="no">L3 · 组合</span><h3>会卖整套</h3><p>整机、建站、自动化方案拼着卖，一个客户多条线变现，收入从"一单一提成"变成"月月有管道"。这是团队里老人带新人、案例库滚出来的真功夫。</p></div>
+    </div>
+    <div class="note" style="margin-top:36px">
+      <h3>离开炽云你能带走什么</h3>
+      <ul>
+        <li>AI 工具的深度使用：写文案、做海报、搭个人主页——这是 AI 时代的手艺，不是话术。</li>
+        <li>B 端获客方法论和一份真实的客户实战记录。</li>
+        <li>私域运营经验：从 0 到 1 建自己的客户群，这套东西去哪儿都用得上。</li>
+        <li>坦白讲：佣金是当下的，本事是带走的。我们招人看长期，你也该看长期。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap fx">
+    <div class="eyebrow">FAIR PLAY</div>
+    <h2>规则说在前面</h2>
+    <p class="lead">丑话讲在前面，是对认真做事的人最大的保护。</p>
+    <div class="faq">
+      <details><summary>客户怎么算我的？别人能抢吗？</summary><div class="a">以首次报备为准。客户跟着你的服务走：他在消费、你在服务，佣金一直是你的。你要是不做了，客户由平台接手安排，你已产生的佣金照发，之后的跟你无关——干多久拿多久，清清楚楚。</div></details>
+      <details><summary>没有客户资源，能做吗？</summary><div class="a">能。学生党、宝妈、有闲时间的上班族都合适。共享资料库里有现成的话术、报价单和案例，朋友圈、QQ 群、贴吧都能发。AI 算力是刚需市场，做毕设、跑模型的年轻人本来就要买。</div></details>
+      <details><summary>佣金什么时候发？</summary><div class="a">按月结。客户消费是月结的，每月按实际消费流水核算佣金，次月底前打款。工作台里每一笔（待结算/已结算）都能查。</div></details>
+      <details><summary>要交钱升级吗？</summary><div class="a">不交一分钱。团队津贴只看业绩门槛（下级≥2人、月流水≥5000），达标自动划拨，不达标不划。</div></details>
+      <details><summary>会开发的话有什么不一样的玩法？</summary><div class="a">走开发者入驻通道：入驻接平台派的单（建站、小程序、工具），开发部分拿合同额 60%；客户是你自己谈的，推广佣金再叠一层。线上交付不用来公司，作品挂平台当案例攒背书。</div></details>
+      <details><summary>能不能自己给客户更低的价？</summary><div class="a">不能。价格统一由公司出，私下降价收款等于飞单——客户拿不到 98 折和售后，你也没有佣金凭证，查实追责。想让客户便宜，走正规报备，98 折本身就是让利。</div></details>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="cta-box">
+  <div class="wrap fx">
+    <div class="big">把闲时间变成<span class="au">每个月都到账</span>的收入</div>
+    <p>向推荐你来的朋友 / 负责人要一个邀请码，注册即入职。</p>
+    <a class="btn" href="/console.html">我有邀请码，去注册</a>
+    <a class="btn ghost" href="/">先看看官网</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">炽云AI · 让算力像水电一样简单 — 佣金规则以《线上合伙人方案》及工作台内公示为准</div>
+</footer>
+
+<script>
+// 进场动效：卡片滚动淡入
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.fx').forEach(el=>io.observe(el));
+})();
+</script>
+
+</body>
+</html>

@@ -1,16 +1,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600
+
+/sw.js
+  Content-Type: application/javascript
+  Cache-Control: no-cache
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-
-/index.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/ai.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/console.html
-  Cache-Control: no-store
-  X-Robots-Tag: noindex, nofollow
