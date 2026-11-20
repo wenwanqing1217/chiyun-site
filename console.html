@@ -432,13 +432,13 @@ const TABS=[
  {k:'approvals',t:'审批',i:'approval',admin:true},
  {k:'notifications',t:'通知',i:'bell'},
  {k:'logs',t:'工作日志',i:'note',g:'协作',admin:true},
- {k:'docs',t:'知识资料',i:'book',admin:true},
+ {k:'docs',t:'知识资料',i:'book'},
  {k:'accounts',t:'运营账号',i:'tag',admin:true},
  {k:'customers',t:'客户档案',i:'briefcase'},
  {k:'sales',t:'推广团队',i:'users',g:'增长'},
  {k:'todos',t:'我的待办',i:'check'},
- {k:'files',t:'共享资料',i:'folder',admin:true},
- {k:'news',t:'公司公告',i:'news',g:'管理',admin:true},
+ {k:'files',t:'共享资料',i:'folder'},
+ {k:'news',t:'公司公告',i:'news',g:'管理'},
  {k:'members',t:'团队成员',i:'users',admin:true},
  {k:'invites',t:'邀请码',i:'key'},
  {k:'settings',t:'设置',i:'gear'}
@@ -878,13 +878,14 @@ async function viewDocs(cat,q){
   try{
     const d=await api('docs'+(cat||q?'?'+(cat?'category='+encodeURIComponent(cat):'')+(cat&&q?'&':'')+(q?'q='+encodeURIComponent(q):''):''));
     const cats=d.categories||[];
+    const boss=S.user.role==='admin';
     const html=d.items.length?'<div class="grid g3">'+d.items.map(f=>
-      '<div class="card spot" style="cursor:pointer"><div class="eyebrow">'+esc(f.category)+'</div>'+
+      '<div class="card spot" style="cursor:pointer"><div class="eyebrow">'+esc(f.category)+(f.visibility==='internal'?' <span class="pill" style="margin-left:6px;font-size:10px">内部</span>':'')+'</div>'+
       '<div style="font-family:var(--serif);font-size:15.5px;margin:8px 0 6px;line-height:1.4">'+esc(f.title)+'</div>'+
       '<div class="txt small" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">'+esc(f.summary||'点击查看资料内容')+'</div>'+
       '<div class="ln"></div><div class="meta">'+ico('book',12)+' '+esc(f.source||'工作台')+' · '+Number(f.size||0)+' 字</div></div>').join('')+'</div>':
       '<div class="empty">没有匹配的资料。</div>';
-    $('#main').innerHTML=head('知识资料','Knowledge Base · 报价、调研、制度与答疑资料','<button class="btn sm ghost" data-act="go-settings">'+ico('info',14)+'导入状态</button>')+
+    $('#main').innerHTML=head('知识资料','Knowledge Base · 报价、调研、制度与答疑资料'+(boss?'':' · 公开部分'),boss?'<button class="btn sm ghost" data-act="go-settings">'+ico('info',14)+'导入状态</button>':'')+
       '<div class="card" style="margin-bottom:14px"><div class="section-title">新人常见问题（先查这里，省算力）</div>'+
       '<div class="grid" style="gap:6px">'+
       [['怎么留客户手机号？','话术：报个手机号登记，全程享98折。客户为折扣自然给真号，这就是归属凭证。'],
@@ -912,11 +913,20 @@ async function viewDocs(cat,q){
 async function openDoc(id){
   try{
     const d=await api('docs/'+id);const it=d.item;
-    openSheet('<div class="eyebrow">'+esc(it.category)+'</div><h3 style="margin-top:8px">'+esc(it.title)+'</h3>'+
+    openSheet('<div class="eyebrow">'+esc(it.category)+(it.visibility==='internal'?' · 仅内部':' · 全员公开')+'</div><h3 style="margin-top:8px">'+esc(it.title)+'</h3>'+
       (it.summary?'<div class="txt small" style="margin-bottom:12px">'+esc(it.summary)+'</div>':'')+
       '<div class="doc-body">'+esc(it.content||'（暂无正文）')+'</div>'+
       (it.source?'<div class="small-note" style="margin-top:12px">来源文件：'+esc(it.source)+'</div>':'')+
-      '<div class="foot"><button class="btn ghost" data-close>关闭</button></div>');
+      '<div class="foot"><button class="btn ghost" data-close>关闭</button>'+
+      (S.user.role==='admin'?'<button class="btn sm ghost" id="doc-vis" data-id="'+it.id+'" data-vis="'+esc(it.visibility||'internal')+'">'+(it.visibility==='public'?'改为仅内部':'公开给合伙人')+'</button>':'')+'</div>');
+    const vb=document.querySelector('#doc-vis');
+    if(vb)vb.onclick=async()=>{
+      try{
+        const next=vb.dataset.vis==='public'?'internal':'public';
+        await api('doc-visibility',{method:'POST',body:{id:Number(vb.dataset.id),visibility:next}});
+        closeSheet();openDoc(id);
+      }catch(e){alert(e.message)}
+    };
   }catch(e){alert(e.message)}
 }
 
@@ -1193,13 +1203,13 @@ async function viewFiles(){
       const mine=f.user_id===S.user.id||S.user.role==='admin';
       const isImg=f.kind==='image';
       return '<div class="card">'+(isImg?'<div data-act="preview" data-url="'+esc(f.url)+'" data-title="'+esc(f.title)+'" style="cursor:zoom-in"><img class="thumb" src="'+esc(f.url)+'" alt="" loading="lazy"></div>':'')+
-        '<div class="item-hd" style="margin-top:'+(isImg?'10px':'0')+'"><div><div class="nm">'+esc(f.title)+'</div><div class="meta">'+esc(f.user_name)+' · '+fmtTime(f.created_at)+' · '+(isImg?'图片':'链接')+'</div></div></div>'+
+        '<div class="item-hd" style="margin-top:'+(isImg?'10px':'0')+'"><div><div class="nm">'+esc(f.title)+'</div><div class="meta">'+esc(f.user_name)+' · '+fmtTime(f.created_at)+' · '+(isImg?'图片':'链接')+(f.visibility==='internal'?' · 仅内部':'')+'</div></div></div>'+
         (f.note?'<div class="txt small">'+esc(f.note)+'</div>':'')+
         (!isImg?'<div style="margin-top:8px"><a class="link" href="'+esc(f.url)+'" target="_blank" rel="noopener">'+esc(f.url)+'</a></div>':'')+
         '<div class="acts">'+(isImg?'<button class="btn sm ghost" data-act="preview" data-url="'+esc(f.url)+'" data-title="'+esc(f.title)+'">查看大图</button>':'')+
         (mine?'<button class="btn sm danger" data-act="del" data-kind="files" data-id="'+f.id+'">删除</button>':'')+'</div></div>';
     }).join(''):'<div class="empty">暂无共享资料，可上传图片或粘贴链接。</div>';
-    $('#main').innerHTML=head('共享资料','Shared Files · 报价单、物料、截图都可以放这里','<button class="btn sm" data-act="new-file">'+ico('plus',14)+'添加资料</button>')+'<div class="grid g3">'+cards+'</div>';
+    $('#main').innerHTML=head('共享资料','Shared Files · 报价单、物料、截图都可以放这里'+(S.user.role==='admin'?'':' · 公开部分'),S.user.role==='admin'?'<button class="btn sm" data-act="new-file">'+ico('plus',14)+'添加资料</button>':'')+'<div class="grid g3">'+cards+'</div>';
     bindMain();
   }catch(e){$('#main').innerHTML=errBox(e)}
 }
@@ -1209,13 +1219,14 @@ function fileForm(){
     '<div class="field"><label>链接（云盘 / 网页）</label><input id="fl_url" placeholder="https://"></div>'+
     '<div class="field"><label>或上传图片（自动压缩，≤900KB）</label><input id="fl_img" type="file" accept="image/*" style="height:auto;padding:9px"></div>'+
     '<div class="field"><label>备注</label><textarea id="fl_note" style="min-height:64px"></textarea></div>'+
+    '<div class="field"><label>可见范围</label><select id="fl_vis" style="height:auto;padding:9px"><option value="public">公开 · 合伙人也能看</option><option value="internal">仅内部 · 合同/结算/成本类选这个</option></select></div>'+
     '<div class="foot"><button class="btn ghost" data-close>取消</button><button class="btn" id="fl_save">保存</button></div>',
   sh=>{
     sh.querySelector('[data-close]').onclick=closeSheet;
     sh.querySelector('#fl_save').onclick=async()=>{
       const title=$('#fl_title').value.trim()||'未命名资料';const url=$('#fl_url').value.trim();const file=$('#fl_img').files[0];
       try{
-        let body={title,note:$('#fl_note').value};
+        let body={title,note:$('#fl_note').value,visibility:$('#fl_vis').value};
         if(file)body.dataUrl=await shrinkImage(file);
         else{if(!url)throw new Error('请填链接或选择图片');body.url=url}
         await api('files',{method:'POST',body});closeSheet();go('files');

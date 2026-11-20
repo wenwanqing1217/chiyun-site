@@ -245,15 +245,19 @@ header.s{background:rgba(5,7,13,.72);backdrop-filter:saturate(160%) blur(18px);-
 .step p{color:var(--ink-2);font-size:15px;line-height:1.8}
 
 /* cta */
-.final{padding:160px 0;text-align:center;overflow:hidden;isolation:isolate}
-.final .orb{position:absolute;z-index:-1;width:900px;height:500px;left:50%;top:40%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(61,107,255,.35),transparent 65%);filter:blur(40px)}
+.final{padding:140px 0;text-align:left;overflow:hidden;isolation:isolate}
+.final .orb{position:absolute;z-index:-1;width:900px;height:500px;left:64%;top:42%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(61,107,255,.35),transparent 65%);filter:blur(40px)}
 .final h2{font-size:clamp(44px,6.4vw,96px);font-weight:600;letter-spacing:-.04em;line-height:1.05}
-.final p{color:var(--ink-2);font-size:18px;margin:28px auto 0;max-width:560px}
-.tel{display:inline-block;font-family:var(--mono);font-size:clamp(28px,3.4vw,44px);letter-spacing:.04em;margin-top:56px;padding-bottom:6px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
+.final .lay{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:60px;align-items:start;margin-top:52px}
+.final p{color:var(--ink-2);font-size:18px;margin:28px 0 0;max-width:620px}
+.tel{display:inline-block;font-family:var(--mono);font-size:clamp(28px,3.4vw,44px);letter-spacing:.04em;margin-top:48px;padding-bottom:6px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
 .tel:hover{border-color:var(--accent-2)}
 .final .who{color:var(--ink-3);font-size:14px;margin-top:16px}
-.final .cta{display:flex;justify-content:center;gap:14px;margin-top:48px;flex-wrap:wrap}
-.trust{display:flex;justify-content:center;gap:36px;margin-top:72px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+.final .cta{display:flex;justify-content:flex-start;gap:14px;margin-top:40px;flex-wrap:wrap}
+.trust{display:flex;justify-content:flex-start;gap:28px;margin-top:40px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+.final .qrs{display:grid;grid-template-columns:1fr;gap:16px;margin-top:0}
+@media(max-width:900px){.final .lay{grid-template-columns:1fr;gap:40px}.final .qrs{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.final .qrs{grid-template-columns:1fr}.final h2{font-size:clamp(38px,10vw,56px)}}
 .trust span{display:flex;align-items:center;gap:8px}
 .trust svg.i{width:15px;height:15px}
 
@@ -425,7 +429,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
       <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="m-login">共绩算力 · 客户登录</a>
       <a href="console.html" class="m-login">内部工作台 · 团队登录</a>
     </nav>
-    <a href="console.html" class="btn btn-w" title="合伙人/团队内部工作台"><svg class="i"><use href="#user"/></svg>内部工作台</a>
+    <a href="https://console.suanli.cn/" target="_blank" rel="noopener" class="btn btn-w" title="共绩算力平台 · 客户登录 / 注册"><svg class="i"><use href="#user"/></svg>登录 / 注册</a>
     <button class="burger" id="burger" aria-label="菜单"><svg class="i" style="width:26px;height:26px"><use href="#menu-i"/></svg></button>
   </div>
 </header>
@@ -676,7 +680,7 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
   <div class="wrap">
     <div class="kicker rv">08 — Partner</div>
     <h2 class="h2 rv d1">招合伙人，<span class="dim">一块把事做大。</span></h2>
-    <p class="rv d1" style="max-width:560px;margin-top:18px;color:var(--ink-2);line-height:1.9">0 投入 · 0 风险 · 纯佣金：客户月花 2000，你拿 60，客户一直用你一直拿；老合伙人带你上手，带团队另有津贴。规则、报价、佣金算法，全都写得明明白白。</p>
+    <p class="rv d1" style="max-width:560px;margin-top:18px;color:var(--ink-2);line-height:1.9">0 投入 · 0 风险 · 纯佣金：客户月花 2000，你首月拿 60、之后每月 30，客户一直用你一直拿；老合伙人带你上手，带团队另有津贴。规则、报价、佣金算法，全都写得明明白白。</p>
     <div class="rv d2" style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
       <a href="recruit.html" class="btn btn-w">成为合伙人 · 看完整方案<svg class="i"><use href="#arrow"/></svg></a>
       <a href="console.html" class="btn btn-o">进入内部工作台<svg class="i"><use href="#arrow"/></svg></a>
@@ -688,31 +692,36 @@ a.qr:hover{border-color:rgba(232,196,128,.5);transform:translateY(-3px)}
 <section class="final" id="contact">
   <div class="orb"></div>
   <div class="wrap">
-    <div class="kicker rv" style="justify-content:center">Contact</div>
-    <h2 class="rv d1" style="margin-top:28px">携手炽云，<br><span class="gt">轻装起步。</span></h2>
-    <p class="rv d2">算力咨询、价格表索取、看房预约、训力券申报——一个电话，全部搞定。</p>
-    <a class="tel rv d2" href="tel:13428978692">134 2897 8692</a>
-    <div class="who rv d3">龚伟 · 项目总经理 ｜ 深圳市龙岗区平湖华南城 中国电子商务办公大楼 2 楼</div>
-    <div class="cta rv d3">
-      <a href="tel:13428978692" class="btn btn-w"><svg class="i"><use href="#phone"/></svg>立即致电</a>
-      <a href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener" class="btn btn-o"><svg class="i"><use href="#chat"/></svg>企业微信咨询</a>
-    </div>
-    <div class="qrs rv">
-      <a class="qr" href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">
-        <div class="qr-img"><img src="assets/qr-wecom.png" alt="企业微信二维码"></div>
-        <div class="qr-t"><b>添加企业微信</b><span>扫码或点击，一对一咨询<br>索取实时价格表</span><em>立即添加<svg class="i"><use href="#arrow"/></svg></em></div>
-      </a>
-      <div class="qr">
-        <div class="qr-img"><img src="assets/qr-mp.png" alt="算力星球公众号二维码"></div>
-        <div class="qr-t"><b>关注公众号</b><span>算力行情 · 训力券政策 · 活动福利</span>
-          <div class="sys"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><i>微信搜一搜</i><b>算力星球</b></div>
+    <div class="kicker rv">Contact</div>
+    <h2 class="rv d1" style="margin-top:28px">携手炽云，<span class="gt">轻装起步。</span></h2>
+    <div class="lay">
+      <div>
+        <p class="rv d2">算力咨询、价格表索取、看房预约、训力券申报——一个电话，全部搞定。</p>
+        <a class="tel rv d2" href="tel:13428978692">134 2897 8692</a>
+        <div class="who rv d3">龚伟 · 项目总经理 ｜ 深圳市龙岗区平湖华南城 中国电子商务办公大楼 2 楼</div>
+        <div class="cta rv d3">
+          <a href="tel:13428978692" class="btn btn-w"><svg class="i"><use href="#phone"/></svg>立即致电</a>
+          <a href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener" class="btn btn-o"><svg class="i"><use href="#chat"/></svg>企业微信咨询</a>
+          <a href="console.html" class="btn btn-o"><svg class="i"><use href="#user"/></svg>内部工作台</a>
+        </div>
+        <div class="trust rv d3">
+          <span><svg class="i"><use href="#shield"/></svg>营业执照 · 对公账户 · 正式协议</span>
+          <span><svg class="i"><use href="#receipt"/></svg>支持对公月结 · 可开增值税专票</span>
+          <span><svg class="i"><use href="#headset"/></svg>7×24 小时真人技术支持</span>
         </div>
       </div>
-    </div>
-    <div class="trust rv">
-      <span><svg class="i"><use href="#shield"/></svg>营业执照 · 对公账户 · 正式协议</span>
-      <span><svg class="i"><use href="#receipt"/></svg>支持对公月结 · 可开增值税专票</span>
-      <span><svg class="i"><use href="#headset"/></svg>7×24 小时真人技术支持</span>
+      <div class="qrs rv d3">
+        <a class="qr" href="https://work.weixin.qq.com/ca/cawcde90eff79aef43" target="_blank" rel="noopener">
+          <div class="qr-img"><img src="assets/qr-wecom.png" alt="企业微信二维码"></div>
+          <div class="qr-t"><b>添加企业微信</b><span>扫码或点击，一对一咨询<br>索取实时价格表</span><em>立即添加<svg class="i"><use href="#arrow"/></svg></em></div>
+        </a>
+        <div class="qr">
+          <div class="qr-img"><img src="assets/qr-mp.png" alt="算力星球公众号二维码"></div>
+          <div class="qr-t"><b>关注公众号</b><span>算力行情 · 训力券政策 · 活动福利</span>
+            <div class="sys"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><i>微信搜一搜</i><b>算力星球</b></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -783,7 +792,7 @@ body.ai-open .ai-fab{opacity:0;pointer-events:none;transform:scale(.9)}
 <script>
 (function(){
   var fab=document.getElementById('aiFab'),panel=document.getElementById('aiPanel'),frame=document.getElementById('aiFrame');
-  var VER='202611191807';
+  var VER='202611201648';
   var SRC='ai.html?embed=1&bar=0&v='+VER;
   function preload(){ if(!frame.getAttribute('src')) frame.src=SRC; }
   function open(){ preload(); panel.classList.add('on'); document.body.classList.add('ai-open'); }

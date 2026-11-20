@@ -544,6 +544,10 @@ async function ensureTables(env) {
        ('服务器售卖','常规',0.02,'一次性合同额的2%（整机大额单：10万的机器拿2000）'),
        ('服务器售卖','续费',0.02,'复购另一台同样2%（老客复购按常规档）')`,
     `ALTER TABLE invites ADD COLUMN owner_id INTEGER DEFAULT 0`,
+    // ===== 资料密级 =====
+    // docs 默认仅管理员；files 默认对合伙人公开（管理员可单条收归内部）
+    `ALTER TABLE docs ADD COLUMN visibility TEXT DEFAULT 'internal'`,
+    `ALTER TABLE files ADD COLUMN visibility TEXT DEFAULT 'public'`,
   ];
   for (const sql of ddl) {
     try { await env.DB.prepare(sql).run(); } catch (e) { /* 表/索引已存在则忽略 */ }
@@ -591,6 +595,30 @@ async function ensureTables(env) {
         `UPDATE commission_rules SET rate=0.015, note='续费月：客户实付的1.5%（月花2000拿30）' WHERE biz_line IN ('算力','裸金属') AND tier='续费'`,
       ];
       for (const s of stmts3) { try { await env.DB.prepare(s).run(); } catch (e) {} }
+    }
+  } catch (e) {}
+  // 资料密级初始化（只跑一次）：
+  // 甲方与公司签的协议、结算价、上游成本、内部台账一律 internal，合伙人不可见；
+  // 公司/产品/报价/答疑等对外资料进白名单 public——合伙人也要了解公司。
+  try {
+    const visDone = await getSetting(env, 'doc_vis_v1');
+    if (visDone !== '1') {
+      await env.DB.prepare(`UPDATE docs SET visibility='internal'`).run();
+      const PUBLIC_DOCS = [
+        '项目简介', '算力报价单', '公司介绍', '产品线与计费', '价格表',
+        'GPU选型与服务器配置', '场地与入驻', '高频问答', '上机与技术排错',
+        '客户补充问答', '海外模型与合规边界'
+      ];
+      for (const t of PUBLIC_DOCS) {
+        await env.DB.prepare(`UPDATE docs SET visibility='public' WHERE title = ?`).bind(t).run();
+      }
+      await env.DB.prepare(`UPDATE files SET visibility='public'`).run();
+      await env.DB.prepare(
+        `UPDATE files SET visibility='internal' WHERE title LIKE '%合同%' OR title LIKE '%协议%'
+          OR title LIKE '%结算%' OR title LIKE '%对公%' OR title LIKE '%成本%'
+          OR title LIKE '%毛利%' OR title LIKE '%提成%' OR note LIKE '%甲方%' OR note LIKE '%0.1584%'`
+      ).run();
+      await setSetting(env, 'doc_vis_v1', '1');
     }
   } catch (e) {}
   // 团队编号回填（每次登录/注册幂等执行，老库自动补齐）
@@ -988,15 +1016,17 @@ export async function onRequest(context) {
 
     // 资料 / 附件
     if (path === 'files' && method === 'GET') {
-      if (!isAdmin(user)) return fail('共享资料仅管理员可见', 403);
+      // 密级：public 全员可见（报价单/物料等），internal 仅管理员（合同/结算/成本）
+      const boss = isAdmin(user);
       const { results } = await env.DB.prepare(
-        `SELECT f.*, u.name AS user_name FROM files f JOIN users u ON u.id = f.user_id ORDER BY f.id DESC LIMIT 300`
+        `SELECT f.*, u.name AS user_name FROM files f JOIN users u ON u.id = f.user_id${boss ? '' : ` WHERE f.visibility = 'public'`} ORDER BY f.id DESC LIMIT 300`
       ).all();
-      return ok({ items: results });
+      return ok({ items: results, scope: boss ? 'all' : 'public' });
     }
     if (path === 'files' && method === 'POST') {
       if (!isAdmin(user)) return fail('共享资料仅管理员可上传', 403);
       const b = await request.json();
+      const vis = b.visibility === 'internal' ? 'internal' : 'public';
       const title = clean(b.title, 120) || '未命名';
       let kind = 'link';
       let fileId = 0;
@@ -1008,8 +1038,8 @@ export async function onRequest(context) {
         const bin = atob(m[2]);
         if (bin.length > MAX_IMG) return fail('图片超过 900KB，请压缩后再传');
         kind = 'image';
-        const res = await env.DB.prepare(`INSERT INTO files (user_id, title, kind, url, note) VALUES (?, ?, ?, '', ?)`)
-          .bind(user.id, title, kind, clean(b.note, 1000))
+        const res = await env.DB.prepare(`INSERT INTO files (user_id, title, kind, url, note, visibility) VALUES (?, ?, ?, '', ?, ?)`)
+          .bind(user.id, title, kind, clean(b.note, 1000), vis)
           .run();
         fileId = res.meta.last_row_id;
         const bytes = new Uint8Array(bin.length);
@@ -1021,13 +1051,23 @@ export async function onRequest(context) {
         return ok({ id: fileId });
       }
       if (!clean(b.url, 2000)) return fail('请填写链接或上传图片');
-      const res = await env.DB.prepare(`INSERT INTO files (user_id, title, kind, url, note) VALUES (?, ?, ?, ?, ?)`)
-        .bind(user.id, title, 'link', clean(b.url, 2000), clean(b.note, 1000))
+      const res = await env.DB.prepare(`INSERT INTO files (user_id, title, kind, url, note, visibility) VALUES (?, ?, ?, ?, ?, ?)`)
+        .bind(user.id, title, 'link', clean(b.url, 2000), clean(b.note, 1000), vis)
         .run();
       return ok({ id: res.meta.last_row_id });
     }
+    // 管理员切换单份资料的公开范围
+    if (path === 'file-visibility' && method === 'POST' && isAdmin(user)) {
+      const b = await request.json();
+      const vis = b.visibility === 'internal' ? 'internal' : 'public';
+      await env.DB.prepare(`UPDATE files SET visibility = ? WHERE id = ?`).bind(vis, Number(b.id)).run();
+      return ok({ visibility: vis });
+    }
     if (seg[0] === 'files' && seg[2] === 'raw' && method === 'GET') {
       const id = Number(seg[1]);
+      const meta = await env.DB.prepare(`SELECT visibility FROM files WHERE id = ?`).bind(id).first();
+      if (!meta) return fail('文件不存在', 404);
+      if (!isAdmin(user) && meta.visibility !== 'public') return fail('该文件仅管理员可查看', 403);
       const row = await env.DB.prepare(`SELECT mime, data FROM file_blobs WHERE file_id = ?`).bind(id).first();
       if (!row) return fail('文件不存在', 404);
       const d = row.data;
@@ -1374,32 +1414,45 @@ export async function onRequest(context) {
       return ok();
     }
 
-    // ---------- 知识资料 ----------
+    // ---------- 知识资料（密级：public 对合伙人可见，internal 仅管理员）----------
     if (path === 'docs' && method === 'GET') {
-      if (!isAdmin(user)) return fail('知识资料仅管理员可见', 403);
+      const boss = isAdmin(user);
       const cat = clean(url.searchParams.get('category'), 32);
       const q = clean(url.searchParams.get('q'), 60);
-      let sql = `SELECT id, title, category, summary, source, tags, created_at, length(content) AS size FROM docs`;
+      let sql = `SELECT id, title, category, summary, source, tags, visibility, created_at, length(content) AS size FROM docs`;
       const where = [], args = [];
+      if (!boss) where.push(`visibility = 'public'`);
       if (cat) { where.push(`category = ?`); args.push(cat); }
       if (q) { where.push(`(title LIKE ? OR summary LIKE ? OR content LIKE ?)`); const k = '%' + q + '%'; args.push(k, k, k); }
       if (where.length) sql += ' WHERE ' + where.join(' AND ');
       sql += ` ORDER BY id DESC LIMIT 300`;
       const { results } = await env.DB.prepare(sql).bind(...args).all();
-      const cats = await env.DB.prepare(`SELECT category, COUNT(*) AS n FROM docs GROUP BY category ORDER BY n DESC`).all();
-      return ok({ items: results, categories: cats.results });
+      const cats = await env.DB.prepare(
+        `SELECT category, COUNT(*) AS n FROM docs${boss ? '' : ` WHERE visibility='public'`} GROUP BY category ORDER BY n DESC`
+      ).all();
+      return ok({ items: results, categories: cats.results, scope: boss ? 'all' : 'public' });
     }
     if (path === 'docs' && method === 'POST' && isAdmin(user)) {
       const b = await request.json();
       const title = clean(b.title, 120);
       if (!title) return fail('标题必填');
-      await env.DB.prepare(`INSERT INTO docs(title, category, summary, content, source, tags) VALUES(?, ?, ?, ?, ?, ?)`)
-        .bind(title, clean(b.category, 32) || '综合', clean(b.summary, 500), clean(b.content, 8000), clean(b.source, 300), clean(b.tags, 200)).run();
+      const vis = b.visibility === 'public' ? 'public' : 'internal';
+      await env.DB.prepare(`INSERT INTO docs(title, category, summary, content, source, tags, visibility) VALUES(?, ?, ?, ?, ?, ?, ?)`)
+        .bind(title, clean(b.category, 32) || '综合', clean(b.summary, 500), clean(b.content, 8000), clean(b.source, 300), clean(b.tags, 200), vis).run();
       return ok();
+    }
+    // 管理员切换单份资料的公开范围（独立路径，避开 docs/:id 路由）
+    if (path === 'doc-visibility' && method === 'POST' && isAdmin(user)) {
+      const b = await request.json();
+      const vis = b.visibility === 'public' ? 'public' : 'internal';
+      await env.DB.prepare(`UPDATE docs SET visibility = ?, updated_at = datetime('now') WHERE id = ?`)
+        .bind(vis, Number(b.id)).run();
+      return ok({ visibility: vis });
     }
     if (seg[0] === 'docs' && seg.length === 2 && method === 'GET') {
       const r = await env.DB.prepare(`SELECT * FROM docs WHERE id = ?`).bind(Number(seg[1])).first();
       if (!r) return fail('资料不存在', 404);
+      if (!isAdmin(user) && r.visibility !== 'public') return fail('该资料仅管理员可查看', 403);
       return ok({ item: r });
     }
     if (seg[0] === 'docs' && seg.length === 2 && method === 'DELETE' && isAdmin(user)) {
